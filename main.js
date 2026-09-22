@@ -103,7 +103,7 @@
         return;
       }
       if (amount > 50000) {
-        showError("For gifts over $50,000, email give@monumentalrecovery.com and we will handle it personally.");
+        showError("For gifts over $50,000, email give@monumentalrecovery.org and we will handle it personally.");
         return;
       }
 
@@ -135,7 +135,7 @@
         .catch(function (err) {
           var message = err && err.message ? err.message : "";
           if (!message || /failed to fetch|networkerror|load failed/i.test(message)) {
-            message = "We could not reach the payment system. Please try again, or email give@monumentalrecovery.com.";
+            message = "We could not reach the payment system. Please try again, or email give@monumentalrecovery.org.";
           }
           showError(message);
           submitBtn.disabled = false;

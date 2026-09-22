@@ -26,7 +26,7 @@ exports.handler = async function (event) {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) {
     return json(500, {
-      error: "Online giving is not switched on yet. Please email give@monumentalrecovery.com."
+      error: "Online giving is not switched on yet. Please email give@monumentalrecovery.org."
     });
   }
 
@@ -96,7 +96,7 @@ exports.handler = async function (event) {
       return json(502, {
         error:
           "Online giving is temporarily unavailable. Please try again shortly, " +
-          "or email give@monumentalrecovery.com and we will take your gift personally."
+          "or email give@monumentalrecovery.org and we will take your gift personally."
       });
     }
 
