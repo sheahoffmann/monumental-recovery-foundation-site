@@ -88,10 +88,10 @@ you're doing it by hand at volume.
 ---
 
 ## Other things to finish before launch
-1. **Email addresses.** `info@` and `give@monumentalrecoveryfoundation.org` appear in
+1. **Email addresses.** `info@` and `give@monumentalrecovery.com` appear in
    the footer, contact page, and donate page. Change them if the real addresses differ.
 2. **Domain.** Update the `<link rel="canonical">` tags if the final domain is not
-   `monumentalrecoveryfoundation.org`.
+   `monumentalrecovery.com`.
 3. **501(c)(3) language.** The footer, the donate FAQ, and the donation thank-you page
    all say status is pending. Update all three when the determination letter arrives,
    and add the EIN.
