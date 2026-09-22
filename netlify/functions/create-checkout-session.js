@@ -91,11 +91,12 @@ exports.handler = async function (event) {
     const data = await res.json();
 
     if (!res.ok) {
+      // Log the real reason for us; never show Stripe's raw message to a donor.
       console.error("Stripe error:", data && data.error);
       return json(502, {
         error:
-          (data && data.error && data.error.message) ||
-          "We could not start checkout. Please try again."
+          "Online giving is temporarily unavailable. Please try again shortly, " +
+          "or email give@monumentalrecoveryfoundation.org and we will take your gift personally."
       });
     }
 
