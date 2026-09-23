@@ -88,10 +88,11 @@ you're doing it by hand at volume.
 ---
 
 ## Other things to finish before launch
-1. **Email addresses.** `info@` and `give@monumentalrecovery.org` appear in
-   the footer, contact page, and donate page. Change them if the real addresses differ.
-2. **Domain.** Update the `<link rel="canonical">` tags if the final domain is not
-   `monumentalrecovery.org`.
+1. **Email address.** `give@monumentalrecovery.org` is the only address used, and it
+   appears in the footer of every page plus the contact, donate, and policy pages.
+   It is a live mailbox. If it ever changes, search the whole folder for it.
+2. **Domain.** Live at `monumentalrecovery.org` (Netlify, custom domain with Let's
+   Encrypt SSL). `www` redirects to the apex. Canonical tags already point there.
 3. **501(c)(3) language.** The footer, the donate FAQ, and the donation thank-you page
    all say status is pending. Update all three when the determination letter arrives,
    and add the EIN.
