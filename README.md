@@ -103,16 +103,27 @@ you're doing it by hand at volume.
 4. **Contact form.** Uses Netlify Forms (`data-netlify="true"`), so it only works once
    deployed to Netlify — enable form notifications in the Netlify dashboard so
    submissions email you.
-5. **Scholarship application.** `apply.html` holds two Netlify forms:
-   `scholarship-application` (the applicant) and `clinical-recommendation` (Section 7,
-   submitted separately by the clinician and matched to the applicant by name).
-   Both are emailed to give@monumentalrecovery.org by the existing notification under
-   Netlify → your site → **Forms → Submission notifications**, which is set to
-   "any form". If that is ever changed to specific forms, include both of these.
-   Uploaded documents appear as links in the email and in
-   the Netlify Forms dashboard. Netlify caps a submission at 8 MB, so the page shrinks
-   photos before sending and tells the applicant to email anything that still won't fit.
-   Check your Netlify plan's monthly limits on form submissions and file uploads.
+5. **Scholarship application.** `apply.html` offers two fillable PDFs and one upload form:
+   - `assets/scholarship-application.pdf` (the applicant, 8 pages)
+   - `assets/clinical-recommendation.pdf` (the clinician, 2 pages)
+   - **Submit Form** posts the completed PDF and any documents to
+     `/.netlify/functions/submit-form`, which emails them **as attachments** to
+     give@monumentalrecovery.org through Resend (resend.com). Reply-to is set to the
+     person who submitted.
+
+   Setup, once: create a Resend account, add and verify the domain
+   `monumentalrecovery.org` (Resend gives you DNS records to add where the domain's DNS
+   is managed), create an API key, and add it in Netlify as the environment variable
+   `RESEND_API_KEY`, then redeploy. Emails are sent from
+   applications@monumentalrecovery.org; override with `APPLICATION_EMAIL_FROM` /
+   `APPLICATION_EMAIL_TO` if needed.
+
+   Uploads are capped at about 4 MB per submission (Netlify's 6 MB function limit, less
+   encoding overhead). The page shrinks phone photos first and tells people to email
+   anything that still won't fit.
+
+   To change the PDFs, edit the wording in `tools/build_pdfs.py` and re-run it (instructions
+   at the top of the file) rather than editing the PDFs by hand.
 
 ## Notes
 - Copy is grounded in the draft bylaws: direct-to-program disbursement, the Board and
