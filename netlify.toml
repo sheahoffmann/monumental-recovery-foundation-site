@@ -1,7 +1,12 @@
 # Monumental Recovery Foundation — Netlify configuration
 
 [build]
-  publish = "."
+  # Publish only the public website files. Netlify copies them into _site/ on every deploy,
+  # so internal files (README.md, tools/, netlify/functions/ source) are never online.
+  # New top-level public files (anything besides .html pages and assets/) must be added here.
+  # The command stops on any error, and a failed deploy leaves the live site untouched.
+  command = "rm -rf _site && mkdir _site && cp *.html style.css main.js robots.txt sitemap.xml _site/ && cp -R assets _site/"
+  publish = "_site"
 
 [functions]
   directory = "netlify/functions"

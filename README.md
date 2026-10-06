@@ -1,7 +1,10 @@
 # Monumental Recovery Foundation — website
 
-Hand-coded static site. No build step, no framework. Open `index.html` in a browser
-to preview locally, or drag this whole folder into Netlify to deploy.
+Hand-coded static site. No framework. Open `index.html` in a browser to preview locally.
+Deploys from GitHub: on each push Netlify copies only the public files (HTML pages, `style.css`,
+`main.js`, `robots.txt`, `sitemap.xml`, `assets/`) into `_site/` and publishes that, so this README,
+`tools/` and the function source stay private. Don't drag the folder into Netlify (that skips this
+step). If you add a new public file at the top level, add it to the `command` in `netlify.toml`.
 
 ## Files
 ```
