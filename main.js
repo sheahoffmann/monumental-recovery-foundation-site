@@ -171,151 +171,84 @@
     }
   }
 
-  /* Scholarship Submit Form ---------------------------------------------- */
-  var submitForm = document.getElementById("submit-form");
-  if (submitForm) {
+  /* Scholarship Submit dialog -------------------------------------------- */
+  var submitDialog = document.getElementById("submit-dialog");
+  if (submitDialog) {
     var MAX_UPLOAD_BYTES = 4 * 1024 * 1024; // the email function accepts about 4.2 MB of files
-    var submitBtn = submitForm.querySelector("button[type=submit]");
-    var errorEl = submitForm.querySelector(".form-error");
+    var submitForm = document.getElementById("submit-form");
+    var fileInput = document.getElementById("s_files");
     var fileList = document.getElementById("file-list");
-    var applicantField = document.getElementById("s_applicant");
-    var dirty = false;
-    var leaving = false;
-
-    var currentRole = function () {
-      var checked = submitForm.querySelector("input[name=role]:checked");
-      return checked ? checked.value : "applicant";
-    };
-
-    // Swap labels and fields between applicant and clinician.
-    var applyRole = function () {
-      var role = currentRole();
-      submitForm.querySelectorAll("[data-show]").forEach(function (el) {
-        el.hidden = el.getAttribute("data-show") !== role;
-      });
-      submitForm.querySelectorAll("label[data-applicant]").forEach(function (el) {
-        el.textContent = el.getAttribute("data-" + role);
-      });
-      applicantField.required = role === "clinician";
-      if (role === "clinician") { document.getElementById("s_docs").value = ""; }
-      listFiles();
-    };
-
-    var selectedFiles = function () {
-      var files = [];
-      submitForm.querySelectorAll("input[type=file]").forEach(function (input) {
-        if (input.closest("[hidden]")) { return; }
-        Array.prototype.forEach.call(input.files || [], function (f) { files.push(f); });
-      });
-      return files;
-    };
+    var sendBtn = submitForm.querySelector("button[type=submit]");
+    var errorEl = submitForm.querySelector(".form-error");
 
     var formatSize = function (bytes) {
       return bytes >= 1048576 ? (bytes / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(bytes / 1024)) + " KB";
     };
 
     var listFiles = function () {
-      var files = selectedFiles();
       fileList.innerHTML = "";
-      if (!files.length) { return; }
-      var total = 0;
-      files.forEach(function (f) {
-        total += f.size;
+      errorEl.hidden = true;
+      Array.prototype.forEach.call(fileInput.files || [], function (f) {
         var li = document.createElement("li");
         li.innerHTML = "<span></span><span></span>";
         li.firstChild.textContent = f.name;
         li.lastChild.textContent = formatSize(f.size);
         fileList.appendChild(li);
       });
-      if (files.length > 1) {
-        var sum = document.createElement("li");
-        sum.className = "is-total";
-        sum.innerHTML = "<span>Total before photos are shrunk</span><span></span>";
-        sum.lastChild.textContent = formatSize(total);
-        fileList.appendChild(sum);
-      }
     };
 
-    // Re-encode phone photos as smaller JPEGs so several pages fit.
-    var shrinkImage = function (file) {
-      if (!/^image\/(jpeg|png|webp|heic|heif)$/i.test(file.type) || file.size < 300 * 1024 ||
-          !window.createImageBitmap) {
-        return Promise.resolve(file);
-      }
-      return createImageBitmap(file).then(function (bmp) {
-        var scale = Math.min(1, 1700 / Math.max(bmp.width, bmp.height));
-        var canvas = document.createElement("canvas");
-        canvas.width = Math.round(bmp.width * scale);
-        canvas.height = Math.round(bmp.height * scale);
-        canvas.getContext("2d").drawImage(bmp, 0, 0, canvas.width, canvas.height);
-        return new Promise(function (resolve) {
-          canvas.toBlob(function (blob) {
-            if (!blob || blob.size >= file.size) { resolve(file); return; }
-            resolve(new File([blob], file.name.replace(/\.[^.]+$/, "") + ".jpg", { type: "image/jpeg" }));
-          }, "image/jpeg", 0.78);
-        });
-      }).catch(function () { return file; });
+    var openDialog = function () {
+      if (submitDialog.showModal) { submitDialog.showModal(); } else { submitDialog.setAttribute("open", ""); }
+    };
+    var closeDialog = function () {
+      if (sendBtn.disabled) { return; }
+      if (submitDialog.close) { submitDialog.close(); } else { submitDialog.removeAttribute("open"); }
     };
 
-    // Preselect from apply.html?role=clinician#submit
-    var roleParam = new URLSearchParams(window.location.search).get("role");
-    if (roleParam === "clinician") {
-      submitForm.querySelector("input[name=role][value=clinician]").checked = true;
-    }
-    submitForm.querySelectorAll("input[name=role]").forEach(function (r) {
-      r.addEventListener("change", applyRole);
+    document.querySelectorAll("[data-open-submit]").forEach(function (btn) {
+      btn.addEventListener("click", openDialog);
     });
-    submitForm.querySelectorAll("input[type=file]").forEach(function (input) {
-      input.addEventListener("change", listFiles);
+    submitDialog.querySelectorAll("[data-close-submit]").forEach(function (btn) {
+      btn.addEventListener("click", closeDialog);
     });
-    applyRole();
-
-    submitForm.addEventListener("input", function () { dirty = true; });
-    window.addEventListener("beforeunload", function (e) {
-      if (dirty && !leaving) { e.preventDefault(); e.returnValue = ""; }
+    // Clicking the dimmed backdrop closes the dialog.
+    submitDialog.addEventListener("click", function (e) {
+      if (e.target === submitDialog) { closeDialog(); }
     });
+    submitDialog.addEventListener("cancel", function (e) {
+      if (sendBtn.disabled) { e.preventDefault(); }
+    });
+    fileInput.addEventListener("change", listFiles);
+    if (window.location.hash === "#submit") { openDialog(); }
 
     submitForm.addEventListener("submit", function (e) {
       e.preventDefault();
       errorEl.hidden = true;
 
-      var role = currentRole();
-      var data = new FormData();
-      ["company", "role", "name", "email", "phone", "notes"].forEach(function (field) {
-        var value = new FormData(submitForm).get(field);
-        if (value) { data.append(field, value); }
-      });
-      if (role === "clinician") { data.append("applicant_name", applicantField.value); }
+      var files = Array.prototype.slice.call(fileInput.files || []);
+      var total = files.reduce(function (sum, f) { return sum + f.size; }, 0);
+      var showError = function (message) {
+        errorEl.textContent = message;
+        errorEl.hidden = false;
+      };
+      if (!files.length) { showError("Please choose your completed PDF."); return; }
+      if (total > MAX_UPLOAD_BYTES) {
+        showError("Your files add up to " + formatSize(total) + ", and the limit is 4 MB. " +
+          "Please email them to give@monumentalrecovery.org instead.");
+        return;
+      }
 
-      var label = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Preparing\u2026";
+      var label = sendBtn.textContent;
+      sendBtn.disabled = true;
+      sendBtn.textContent = "Sending\u2026";
 
-      Promise.all(selectedFiles().map(shrinkImage))
-        .then(function (files) {
-          var total = 0;
-          var biggest = null;
-          files.forEach(function (f) {
-            data.append("files", f, f.name);
-            total += f.size;
-            if (!biggest || f.size > biggest.size) { biggest = f; }
-          });
-          if (total > MAX_UPLOAD_BYTES) {
-            throw new Error(
-              "Your files add up to " + formatSize(total) + ", and the limit is 4 MB. " +
-              "Remove the largest file (" + biggest.name + ") and email it to give@monumentalrecovery.org instead, then submit again."
-            );
-          }
-          submitBtn.textContent = "Sending\u2026";
-          return fetch(submitForm.getAttribute("action"), { method: "POST", body: data });
-        })
+      fetch(submitForm.getAttribute("action"), { method: "POST", body: new FormData(submitForm) })
         .then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (body) {
             if (!res.ok || !body.ok) {
               throw new Error(body.error || "We could not send your form. Please try again.");
             }
-            leaving = true;
-            window.location.href = role === "clinician" ? "recommendation-received.html" : "application-received.html";
+            window.location.href = "application-received.html";
           });
         })
         .catch(function (err) {
@@ -323,10 +256,9 @@
           if (!message || /failed to fetch|networkerror|load failed/i.test(message)) {
             message = "We could not reach the server. Check your connection and try again, or email give@monumentalrecovery.org.";
           }
-          errorEl.textContent = message;
-          errorEl.hidden = false;
-          submitBtn.disabled = false;
-          submitBtn.textContent = label;
+          showError(message);
+          sendBtn.disabled = false;
+          sendBtn.textContent = label;
         });
     });
   }

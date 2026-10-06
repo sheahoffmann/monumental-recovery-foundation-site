@@ -1,8 +1,8 @@
 /* ==========================================================================
    Monumental Recovery Foundation — application and recommendation uploads
    --------------------------------------------------------------------------
-   Receives the Submit Form upload from apply.html and emails it, with every
-   file attached, to give@monumentalrecovery.org through Resend.
+   Receives the completed PDF uploaded through the Submit button on apply.html
+   and emails it, attached, to give@monumentalrecovery.org through Resend.
 
    Requires ONE environment variable, set in Netlify:
      Site configuration -> Environment variables -> Add a variable
@@ -25,7 +25,7 @@ const DEFAULT_FROM = "Monumental Recovery Foundation <applications@monumentalrec
 // encoded, so the files themselves must stay under about 4.4 MB.
 const MAX_TOTAL_BYTES = 4.2 * 1024 * 1024;
 const MAX_FILES = 12;
-const ALLOWED = /\.(pdf|jpe?g|png|heic|heif|webp|docx?)$/i;
+const ALLOWED = /\.pdf$/i;
 
 const FALLBACK =
   " You can also email everything to give@monumentalrecovery.org.";
@@ -59,25 +59,11 @@ exports.handler = async function (event) {
     return json(200, { ok: true });
   }
 
-  const role = text(form, "role") === "clinician" ? "clinician" : "applicant";
-  const name = text(form, "name");
-  const email = text(form, "email");
-  const phone = text(form, "phone");
-  const applicantName = role === "clinician" ? text(form, "applicant_name") : name;
-  const notes = text(form, "notes");
-
-  if (!name || !email || !applicantName) {
-    return json(400, { error: "Please fill in your name, email, and the applicant's name." });
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return json(400, { error: "Please check your email address." });
-  }
-
   const files = form.getAll("files").filter(function (f) {
     return f && typeof f === "object" && f.size > 0;
   });
   if (!files.length) {
-    return json(400, { error: "Please attach your completed form." });
+    return json(400, { error: "Please choose your completed PDF." });
   }
   if (files.length > MAX_FILES) {
     return json(400, { error: "Please attach no more than " + MAX_FILES + " files." + FALLBACK });
@@ -88,46 +74,33 @@ exports.handler = async function (event) {
   for (const file of files) {
     const filename = safeName(file.name);
     if (!ALLOWED.test(filename)) {
-      return json(400, { error: filename + " is not a PDF, photo, or Word file." });
+      return json(400, { error: filename + " is not a PDF. Please save your form as a PDF and try again." });
     }
     total += file.size;
     if (total > MAX_TOTAL_BYTES) {
       return json(413, { error: "Your files are too large to send together." + FALLBACK });
     }
-    attachments.push({
-      filename: filename,
-      content: Buffer.from(await file.arrayBuffer()).toString("base64")
-    });
+    const bytes = Buffer.from(await file.arrayBuffer());
+    if (bytes.subarray(0, 1024).indexOf("%PDF-") === -1) {
+      return json(400, { error: filename + " does not look like a PDF. Please save your form as a PDF and try again." });
+    }
+    attachments.push({ filename: filename, content: bytes.toString("base64") });
   }
 
-  const subject =
-    role === "clinician"
-      ? "Clinical recommendation for " + applicantName + " (from " + name + ")"
-      : "Scholarship application: " + applicantName;
-
-  const rows = [
-    ["Type", role === "clinician" ? "Clinical recommendation" : "Scholarship application"],
-    ["Applicant", applicantName]
-  ];
-  if (role === "clinician") { rows.push(["Clinician", name]); }
-  rows.push(["Email", email], ["Phone", phone || "Not given"]);
-  if (notes) { rows.push(["Note", notes]); }
-  rows.push(["Files attached", attachments.map(function (a) { return a.filename; }).join(", ")]);
+  const names = attachments.map(function (a) { return a.filename; });
+  const received = new Date().toLocaleString("en-US", { timeZone: "America/Denver", dateStyle: "long", timeStyle: "short" });
+  const subject = "Scholarship form submitted: " + names.join(", ").slice(0, 150);
 
   const html =
     '<div style="font-family:Arial,sans-serif;font-size:15px;color:#1a1a1a;">' +
-    "<p>A new " + (role === "clinician" ? "clinical recommendation" : "scholarship application") +
-    " was submitted at monumentalrecovery.org. The completed form is attached.</p>" +
-    '<table cellpadding="6" style="border-collapse:collapse;">' +
-    rows.map(function (r) {
-      return '<tr><td style="font-weight:bold;vertical-align:top;">' + esc(r[0]) +
-        "</td><td>" + esc(r[1]).replace(/\n/g, "<br>") + "</td></tr>";
-    }).join("") +
-    "</table>" +
-    '<p style="color:#666;font-size:13px;">Reply to this email to reach ' + esc(name) + " directly.</p>" +
+    "<p>A completed form was submitted at monumentalrecovery.org/apply.html on " + esc(received) + " (Mountain).</p>" +
+    "<p>Attached: " + names.map(esc).join(", ") + "</p>" +
+    '<p style="color:#666;font-size:13px;">The applicant or clinician\'s name and contact details are in the attached form.</p>' +
     "</div>";
 
-  const textBody = rows.map(function (r) { return r[0] + ": " + r[1]; }).join("\n");
+  const textBody =
+    "A completed form was submitted at monumentalrecovery.org/apply.html on " + received + " (Mountain).\n" +
+    "Attached: " + names.join(", ");
 
   try {
     const res = await fetch(RESEND_API, {
@@ -139,7 +112,6 @@ exports.handler = async function (event) {
       body: JSON.stringify({
         from: process.env.APPLICATION_EMAIL_FROM || DEFAULT_FROM,
         to: [process.env.APPLICATION_EMAIL_TO || DEFAULT_TO],
-        reply_to: email,
         subject: subject,
         html: html,
         text: textBody,

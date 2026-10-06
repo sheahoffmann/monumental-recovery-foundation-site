@@ -12,8 +12,7 @@ contact.html               Contact (Netlify form -> thank-you.html)
 apply.html                 Scholarship application (Netlify form + file uploads -> application-received.html)
 sharon.html                Memorial page for Sharon Elaine Bunnett (checks only, noindex)
 thank-you.html             Contact form confirmation
-application-received.html  Scholarship application confirmation
-recommendation-received.html  Clinician recommendation confirmation
+application-received.html  Confirmation after a form is submitted
 assets/scholarship-application.pdf  Paper version of the application (linked from apply.html)
 donation-thank-you.html    Post-donation confirmation (Stripe returns here)
 style.css                  All styling (brand tokens at the top)
@@ -106,10 +105,9 @@ you're doing it by hand at volume.
 5. **Scholarship application.** `apply.html` offers two fillable PDFs and one upload form:
    - `assets/scholarship-application.pdf` (the applicant, 8 pages)
    - `assets/clinical-recommendation.pdf` (the clinician, 2 pages)
-   - **Submit Form** posts the completed PDF and any documents to
-     `/.netlify/functions/submit-form`, which emails them **as attachments** to
-     give@monumentalrecovery.org through Resend (resend.com). Reply-to is set to the
-     person who submitted.
+   - **Submit** opens a box where the person picks their completed PDF. It posts to
+     `/.netlify/functions/submit-form`, which emails the PDF **as an attachment** to
+     give@monumentalrecovery.org through Resend (resend.com). Only real PDFs are accepted.
 
    Setup, once: create a Resend account, add and verify the domain
    `monumentalrecovery.org` (Resend gives you DNS records to add where the domain's DNS
@@ -119,8 +117,7 @@ you're doing it by hand at volume.
    `APPLICATION_EMAIL_TO` if needed.
 
    Uploads are capped at about 4 MB per submission (Netlify's 6 MB function limit, less
-   encoding overhead). The page shrinks phone photos first and tells people to email
-   anything that still won't fit.
+   encoding overhead). The page tells people to email anything larger.
 
    To change the PDFs, edit the wording in `tools/build_pdfs.py` and re-run it (instructions
    at the top of the file) rather than editing the PDFs by hand.

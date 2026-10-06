@@ -453,55 +453,52 @@ section:not(.band-warm):not(.band-navy) .card { background: var(--sunken); }
 .apply-step .btn { margin-top: 0.5rem; }
 .apply-meta { margin: 0.65rem 0 0; font-size: 0.85rem; color: var(--navy-soft); }
 
-.field.choices { border: 0; padding: 0; margin: 0 0 1.35rem; min-width: 0; }
-.field.choices legend { font-weight: 700; font-size: 0.88rem; letter-spacing: 0.02em; margin-bottom: 0.55rem; padding: 0; }
-.role-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-@media (max-width: 640px) { .role-options { grid-template-columns: 1fr; } }
-.field label.role-option {
+.submit-dialog {
+  width: min(100% - 2rem, 34rem);
+  max-height: calc(100% - 2rem);
+  border: 1px solid var(--creme-line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--navy);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  box-shadow: var(--shadow);
+}
+.submit-dialog::backdrop { background: rgba(35, 47, 82, 0.55); }
+.submit-dialog h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); margin-bottom: 0.5rem; }
+.file-drop {
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  gap: 0.7rem;
-  margin: 0;
-  padding: 0.9rem 1rem;
-  border: 1.5px solid var(--creme-line);
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.75rem 1rem;
+  margin: 1.25rem 0 0.75rem;
+  border: 2px dashed var(--creme-line);
   border-radius: var(--radius);
   background: var(--sunken);
-  font-weight: 400;
-  font-size: 0.92rem;
-  letter-spacing: 0;
-  line-height: 1.4;
+  text-align: center;
   cursor: pointer;
-  transition: border-color 0.16s var(--ease), background 0.16s var(--ease);
+  transition: border-color 0.16s var(--ease);
 }
-.role-option strong { display: block; font-size: 1rem; }
-.field .role-option input { width: 1.15rem; height: 1.15rem; margin: 0.15rem 0 0; flex: 0 0 auto; accent-color: var(--navy); }
-.role-option:has(input:checked) { border-color: var(--navy); background: var(--creme); }
-
-.upload { padding: 1rem 0; border-top: 1px solid var(--creme-line); }
-.upload label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem; }
-.upload label .muted { font-weight: 400; }
-.upload input[type="file"] { font-family: var(--font-body); font-size: 0.92rem; color: var(--navy-soft); width: 100%; }
-.upload input[type="file"]::file-selector-button {
-  font-family: var(--font-body);
+.file-drop:hover, .file-drop:focus-within { border-color: var(--navy-mist); }
+.file-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.file-drop-btn {
+  display: inline-block;
   font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--navy);
-  background: var(--sunken);
-  border: 1.5px solid var(--creme-line);
+  font-size: 0.95rem;
+  padding: 0.6rem 1.4rem;
   border-radius: 100px;
-  padding: 0.45rem 1rem;
-  margin-right: 0.8rem;
-  cursor: pointer;
+  background: var(--navy);
+  color: var(--creme);
 }
-.upload input[type="file"]::file-selector-button:hover { border-color: var(--navy-mist); }
-.file-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--creme-line); font-size: 0.9rem; }
+.file-drop-hint { font-size: 0.88rem; color: var(--navy-soft); }
+.file-list { list-style: none; padding: 0; margin: 0; font-size: 0.92rem; }
 .file-list:empty { display: none; }
-.file-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.4rem 0; margin: 0; border-bottom: 1px dashed var(--creme-line); overflow-wrap: anywhere; }
+.file-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; margin: 0; border-bottom: 1px dashed var(--creme-line); overflow-wrap: anywhere; }
 .file-list li span:last-child { color: var(--navy-soft); white-space: nowrap; }
-.file-list li.is-total { font-weight: 700; border-bottom: 0; }
-.file-list li.is-over span:last-child { color: #8f2f2f; }
-.app-form { overflow-wrap: break-word; }
-.app-form button[disabled] { opacity: 0.7; cursor: progress; transform: none; }
+.submit-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
+.submit-dialog button[disabled] { opacity: 0.7; cursor: progress; transform: none; }
+
 
 /* Memorial page ----------------------------------------------------------- */
 .memorial-head { padding: clamp(3.5rem, 8vw, 6rem) 0 clamp(2rem, 4vw, 3rem); text-align: center; }

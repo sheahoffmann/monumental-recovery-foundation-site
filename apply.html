@@ -53,22 +53,22 @@
         <article class="apply-step">
           <p class="step-num">01</p>
           <h2>Applicant</h2>
-          <p class="apply-desc">Download the scholarship application. Type into it on your computer, or print it and fill it out by hand. Sign it yourself.</p>
+          <p class="apply-desc">Download the scholarship application to your computer. Open it, type your answers into it, sign it, and save it.</p>
           <a class="btn" href="assets/scholarship-application.pdf" download>Applicant</a>
           <p class="apply-meta">PDF &middot; 8 pages</p>
         </article>
         <article class="apply-step">
           <p class="step-num">02</p>
           <h2>Clinician</h2>
-          <p class="apply-desc">Your clinician, therapist, physician, or interventionist completes the Clinical Recommendation and submits it to us directly. Send them this page.</p>
+          <p class="apply-desc">Your clinician, therapist, physician, or interventionist downloads the Clinical Recommendation, fills it out, and submits it to us directly. Send them this page.</p>
           <a class="btn" href="assets/clinical-recommendation.pdf" download>Clinician</a>
           <p class="apply-meta">PDF &middot; 2 pages</p>
         </article>
         <article class="apply-step">
           <p class="step-num">03</p>
-          <h2>Submit Form</h2>
-          <p class="apply-desc">When a form is complete, upload it here with any documents. It is emailed straight to the Foundation.</p>
-          <a class="btn btn-pink" href="#submit">Submit Form</a>
+          <h2>Submit</h2>
+          <p class="apply-desc">Once your form is filled out and saved, come back to this page and press Submit to upload it. It is emailed straight to the Foundation.</p>
+          <button class="btn btn-pink" type="button" data-open-submit>Submit</button>
           <p class="apply-meta">For applicants and clinicians</p>
         </article>
       </div>
@@ -98,7 +98,7 @@
             <li>Insurance card (front and back) and any approval or denial letter, if insured</li>
             <li>A program cost estimate or admission letter, if you have one</li>
           </ul>
-          <p class="small muted" style="margin:0;">Copies or clear phone photos are fine.</p>
+          <p class="small muted" style="margin:0;">Upload them as PDFs when you press Submit, or email them to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a> (phone photos are fine by email).</p>
         </article>
         <article class="card">
           <h3>What happens next</h3>
@@ -116,70 +116,30 @@
     </div>
   </section>
 
-  <!-- Submit ------------------------------------------------------------ -->
-  <section id="submit" style="scroll-margin-top:5rem;">
-    <div class="wrap-narrow">
-      <p class="eyebrow">Submit Form</p>
-      <h2>Send us a completed form.</h2>
-      <p class="muted">Upload the filled-out PDF. If you filled it out by hand, a scan or clear phone photo of each page works too. You can also email everything to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a>.</p>
-
-      <form class="give-panel app-form" id="submit-form" method="POST" enctype="multipart/form-data" action="/.netlify/functions/submit-form" style="margin-top:1.75rem;">
-        <p class="hp"><label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
-
-        <fieldset class="field choices">
-          <legend>I am submitting</legend>
-          <div class="role-options">
-            <label class="role-option"><input type="radio" name="role" value="applicant" checked> <span><strong>My scholarship application</strong> I'm the applicant</span></label>
-            <label class="role-option"><input type="radio" name="role" value="clinician"> <span><strong>A clinical recommendation</strong> I'm the clinician</span></label>
-          </div>
-        </fieldset>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="s_name" data-applicant="Your full name" data-clinician="Your name and credentials">Your full name</label>
-            <input type="text" id="s_name" name="name" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="s_email">Email</label>
-            <input type="email" id="s_email" name="email" autocomplete="email" required>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="s_phone">Phone <span class="muted" style="font-weight:400;">(optional)</span></label>
-            <input type="tel" id="s_phone" name="phone" autocomplete="tel">
-          </div>
-          <div class="field" data-show="clinician" hidden>
-            <label for="s_applicant">Applicant's full name</label>
-            <input type="text" id="s_applicant" name="applicant_name" autocomplete="off">
-          </div>
-        </div>
-
-        <div class="upload">
-          <label for="s_form" data-applicant="Completed scholarship application" data-clinician="Completed Clinical Recommendation">Completed scholarship application</label>
-          <p class="field-hint">The filled-out PDF, or a photo of each page. You can select more than one file.</p>
-          <input type="file" id="s_form" name="files" accept=".pdf,image/*" multiple required>
-        </div>
-        <div class="upload" data-show="applicant">
-          <label for="s_docs">Supporting documents <span class="muted">(optional now, required before review)</span></label>
-          <p class="field-hint">Photo ID, proof of income, insurance card front and back, and any insurance or program letters. You can select more than one file.</p>
-          <input type="file" id="s_docs" name="files" accept=".pdf,.doc,.docx,image/*" multiple>
-        </div>
-        <ul class="file-list" id="file-list" aria-live="polite"></ul>
-
-        <div class="field" style="margin-top:1.25rem;">
-          <label for="s_notes">Anything we should know? <span class="muted" style="font-weight:400;">(optional)</span></label>
-          <textarea id="s_notes" name="notes" style="min-height:100px;"></textarea>
-        </div>
-
-        <button class="btn" type="submit" style="width:100%;justify-content:center;">Submit Form</button>
-        <p class="form-error" role="alert" hidden></p>
-        <p class="give-note">Your files are emailed only to the Foundation at give@monumentalrecovery.org. Photos are shrunk automatically; all files together must be under 4 MB. If yours are larger, email them to us instead.</p>
-      </form>
-    </div>
-  </section>
-
 </main>
+
+<!-- Submit dialog ------------------------------------------------------- -->
+<dialog class="submit-dialog" id="submit-dialog" aria-labelledby="submit-title">
+  <form id="submit-form" method="POST" enctype="multipart/form-data" action="/.netlify/functions/submit-form">
+    <p class="hp"><label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+    <h2 id="submit-title">Submit your completed form</h2>
+    <p class="muted">Choose the PDF you filled out and saved. It will be emailed to the Foundation.</p>
+
+    <label class="file-drop" for="s_files">
+      <input type="file" id="s_files" name="files" accept=".pdf,application/pdf" multiple required>
+      <span class="file-drop-btn">Choose PDF</span>
+      <span class="file-drop-hint">You can choose more than one file.</span>
+    </label>
+    <ul class="file-list" id="file-list" aria-live="polite"></ul>
+
+    <p class="form-error" role="alert" hidden></p>
+    <div class="submit-actions">
+      <button class="btn btn-ghost" type="button" data-close-submit>Cancel</button>
+      <button class="btn" type="submit">Send</button>
+    </div>
+    <p class="small muted" style="margin:1.25rem 0 0;">Trouble uploading? Email your form to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a>.</p>
+  </form>
+</dialog>
 
 <footer class="site-footer">
   <div class="wrap">
