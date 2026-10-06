@@ -468,39 +468,24 @@ section:not(.band-warm):not(.band-navy) .card { background: var(--sunken); }
 }
 .submit-dialog::backdrop { background: rgba(35, 47, 82, 0.55); }
 .submit-dialog h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); margin-bottom: 0.5rem; }
-.file-drop {
-  position: relative;
+.submit-steps { margin: 1rem 0 0; padding-left: 1.3em; }
+.submit-steps li { margin-bottom: 0.9rem; }
+.submit-mail-btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.7rem; }
+.submit-fallback { border-top: 1px solid var(--creme-line); padding-top: 1.1rem; margin-top: 0.5rem; font-size: 0.95rem; }
+.submit-fallback p { margin-bottom: 0.6rem; }
+.copy-row {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1.75rem 1rem;
-  margin: 1.25rem 0 0.75rem;
-  border: 2px dashed var(--creme-line);
-  border-radius: var(--radius);
+  gap: 0.6rem 0.9rem;
   background: var(--sunken);
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.16s var(--ease);
+  border: 1.5px dashed var(--creme-line);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.8rem;
 }
-.file-drop:hover, .file-drop:focus-within { border-color: var(--navy-mist); }
-.file-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-.file-drop-btn {
-  display: inline-block;
-  font-weight: 700;
-  font-size: 0.95rem;
-  padding: 0.6rem 1.4rem;
-  border-radius: 100px;
-  background: var(--navy);
-  color: var(--creme);
-}
-.file-drop-hint { font-size: 0.88rem; color: var(--navy-soft); }
-.file-list { list-style: none; padding: 0; margin: 0; font-size: 0.92rem; }
-.file-list:empty { display: none; }
-.file-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; margin: 0; border-bottom: 1px dashed var(--creme-line); overflow-wrap: anywhere; }
-.file-list li span:last-child { color: var(--navy-soft); white-space: nowrap; }
+.copy-row code { font-family: var(--font-body); font-weight: 700; overflow-wrap: anywhere; flex: 1 1 12rem; }
+.btn-small { padding: 0.5rem 1.1rem; font-size: 0.85rem; }
 .submit-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
-.submit-dialog button[disabled] { opacity: 0.7; cursor: progress; transform: none; }
 
 
 /* Memorial page ----------------------------------------------------------- */

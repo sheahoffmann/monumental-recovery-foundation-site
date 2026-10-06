@@ -67,7 +67,7 @@
         <article class="apply-step">
           <p class="step-num">03</p>
           <h2>Submit</h2>
-          <p class="apply-desc">Once your form is filled out and saved, come back to this page and press Submit to upload it. It is emailed straight to the Foundation.</p>
+          <p class="apply-desc">Once your form is filled out and saved, come back to this page and press Submit to email it to the Foundation.</p>
           <button class="btn btn-pink" type="button" data-open-submit>Submit</button>
           <p class="apply-meta">For applicants and clinicians</p>
         </article>
@@ -98,7 +98,7 @@
             <li>Insurance card (front and back) and any approval or denial letter, if insured</li>
             <li>A program cost estimate or admission letter, if you have one</li>
           </ul>
-          <p class="small muted" style="margin:0;">Upload them as PDFs when you press Submit, or email them to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a> (phone photos are fine by email).</p>
+          <p class="small muted" style="margin:0;">Attach them to the same email as your application. Copies or clear phone photos are fine.</p>
         </article>
         <article class="card">
           <h3>What happens next</h3>
@@ -120,25 +120,28 @@
 
 <!-- Submit dialog ------------------------------------------------------- -->
 <dialog class="submit-dialog" id="submit-dialog" aria-labelledby="submit-title">
-  <form id="submit-form" method="POST" enctype="multipart/form-data" action="/.netlify/functions/submit-form">
-    <p class="hp"><label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
-    <h2 id="submit-title">Submit your completed form</h2>
-    <p class="muted">Choose the PDF you filled out and saved. It will be emailed to the Foundation.</p>
-
-    <label class="file-drop" for="s_files">
-      <input type="file" id="s_files" name="files" accept=".pdf,application/pdf" multiple required>
-      <span class="file-drop-btn">Choose PDF</span>
-      <span class="file-drop-hint">You can choose more than one file.</span>
-    </label>
-    <ul class="file-list" id="file-list" aria-live="polite"></ul>
-
-    <p class="form-error" role="alert" hidden></p>
-    <div class="submit-actions">
-      <button class="btn btn-ghost" type="button" data-close-submit>Cancel</button>
-      <button class="btn" type="submit">Send</button>
+  <h2 id="submit-title">Email us your completed form</h2>
+  <ol class="submit-steps">
+    <li>
+      <strong>Open a new email.</strong> Choose the one that fits:
+      <div class="submit-mail-btns">
+        <a class="btn" href="mailto:give@monumentalrecovery.org?subject=Scholarship%20application&amp;body=Please%20attach%20your%20completed%20scholarship%20application%20%28PDF%29%20before%20sending.%20It%20is%20in%20your%20Downloads%20folder%20as%20scholarship-application.pdf.%20Attach%20any%20supporting%20documents%20too.%0A%0AApplicant%27s%20full%20name%3A%20%0APhone%3A%20%0A">I'm the applicant</a>
+        <a class="btn btn-ghost" href="mailto:give@monumentalrecovery.org?subject=Clinical%20recommendation&amp;body=Please%20attach%20the%20completed%20Clinical%20Recommendation%20%28PDF%29%20before%20sending.%20It%20is%20in%20your%20Downloads%20folder%20as%20clinical-recommendation.pdf.%0A%0AApplicant%27s%20full%20name%3A%20%0AYour%20name%20and%20credentials%3A%20%0A">I'm the clinician</a>
+      </div>
+    </li>
+    <li><strong>Attach your saved PDF.</strong> Click the paperclip and choose the file from your <strong>Downloads</strong> folder. Applicants, attach your supporting documents too.</li>
+    <li><strong>Press Send.</strong></li>
+  </ol>
+  <div class="submit-fallback">
+    <p><strong>Email didn't open?</strong> Write a new email in Gmail, Outlook, or whatever you use, attach your PDF, and send it to:</p>
+    <div class="copy-row">
+      <code>give@monumentalrecovery.org</code>
+      <button class="btn btn-ghost btn-small" type="button" data-copy="give@monumentalrecovery.org">Copy address</button>
     </div>
-    <p class="small muted" style="margin:1.25rem 0 0;">Trouble uploading? Email your form to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a>.</p>
-  </form>
+  </div>
+  <div class="submit-actions">
+    <button class="btn btn-ghost" type="button" data-close-submit>Close</button>
+  </div>
 </dialog>
 
 <footer class="site-footer">

@@ -297,9 +297,9 @@ def applicant(path):
              "Ask your clinician, therapist, physician, or interventionist to complete the separate Clinical "
              "Recommendation form at monumentalrecovery.org/apply.html. Your clinician submits it to us directly.",
              "Gather the documents listed in Section 7.",
-             "Return to monumentalrecovery.org/apply.html and press Submit to upload this completed form. Upload "
-             "your Section 7 documents there too if they are PDFs, or email them to give@monumentalrecovery.org. "
-             "A family member or referring professional may help you, but you must sign the application yourself."],
+             "Return to monumentalrecovery.org/apply.html and press Submit, or email this completed form and your "
+             "Section 7 documents to give@monumentalrecovery.org. A family member or referring professional may "
+             "help you, but you must sign the application yourself."],
             numbered=True)
     d.subhead("What happens next")
     d.items(["Within 2 business days, you will receive an email confirming receipt, your application ID number, "
@@ -474,7 +474,7 @@ def clinician(path):
            "instead of completing every field.")
     d.subhead("How to submit")
     d.items(["Type your answers into this form on your computer and save it.",
-             "Return to monumentalrecovery.org/apply.html and press Submit to upload it, or email it to "
+             "Return to monumentalrecovery.org/apply.html and press Submit, or email it to "
              "give@monumentalrecovery.org with the applicant's name in the subject line.",
              "Please send it directly to the Foundation rather than returning it to the applicant."], numbered=True)
     d.para("Everything you send is kept with the applicant's confidential file and reviewed only by the "

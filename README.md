@@ -9,10 +9,9 @@ index.html                 Home
 story.html                 Story
 donate.html                Donate (Stripe Checkout)
 contact.html               Contact (Netlify form -> thank-you.html)
-apply.html                 Scholarship application (Netlify form + file uploads -> application-received.html)
+apply.html                 Scholarship application: PDF downloads + Submit (email) instructions
 sharon.html                Memorial page for Sharon Elaine Bunnett (checks only, noindex)
 thank-you.html             Contact form confirmation
-application-received.html  Confirmation after a form is submitted
 next-steps-applicant.html  Shown after the applicant PDF download starts
 next-steps-clinician.html  Shown after the clinician PDF download starts
 assets/scholarship-application.pdf  Paper version of the application (linked from apply.html)
@@ -104,22 +103,13 @@ you're doing it by hand at volume.
 4. **Contact form.** Uses Netlify Forms (`data-netlify="true"`), so it only works once
    deployed to Netlify — enable form notifications in the Netlify dashboard so
    submissions email you.
-5. **Scholarship application.** `apply.html` offers two fillable PDFs and one upload form:
+5. **Scholarship application.** `apply.html` offers two fillable PDFs and a Submit button:
    - `assets/scholarship-application.pdf` (the applicant, 8 pages)
    - `assets/clinical-recommendation.pdf` (the clinician, 2 pages)
-   - **Submit** opens a box where the person picks their completed PDF. It posts to
-     `/.netlify/functions/submit-form`, which emails the PDF **as an attachment** to
-     give@monumentalrecovery.org through Resend (resend.com). Only real PDFs are accepted.
-
-   Setup, once: create a Resend account, add and verify the domain
-   `monumentalrecovery.org` (Resend gives you DNS records to add where the domain's DNS
-   is managed), create an API key, and add it in Netlify as the environment variable
-   `RESEND_API_KEY`, then redeploy. Emails are sent from
-   applications@monumentalrecovery.org; override with `APPLICATION_EMAIL_FROM` /
-   `APPLICATION_EMAIL_TO` if needed.
-
-   Uploads are capped at about 4 MB per submission (Netlify's 6 MB function limit, less
-   encoding overhead). The page tells people to email anything larger.
+   - Pressing **Applicant** or **Clinician** downloads the PDF and then shows a next-steps page.
+   - **Submit** opens instructions with buttons that start a new email (mailto link) to
+     give@monumentalrecovery.org with the subject filled in. The person attaches the PDF
+     themselves. If no mail app opens, the box shows the address with a copy button.
 
    To change the PDFs, edit the wording in `tools/build_pdfs.py` and re-run it (instructions
    at the top of the file) rather than editing the PDFs by hand.

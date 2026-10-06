@@ -183,37 +183,12 @@
   /* Scholarship Submit dialog -------------------------------------------- */
   var submitDialog = document.getElementById("submit-dialog");
   if (submitDialog) {
-    var MAX_UPLOAD_BYTES = 4 * 1024 * 1024; // the email function accepts about 4.2 MB of files
-    var submitForm = document.getElementById("submit-form");
-    var fileInput = document.getElementById("s_files");
-    var fileList = document.getElementById("file-list");
-    var sendBtn = submitForm.querySelector("button[type=submit]");
-    var errorEl = submitForm.querySelector(".form-error");
-
-    var formatSize = function (bytes) {
-      return bytes >= 1048576 ? (bytes / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(bytes / 1024)) + " KB";
-    };
-
-    var listFiles = function () {
-      fileList.innerHTML = "";
-      errorEl.hidden = true;
-      Array.prototype.forEach.call(fileInput.files || [], function (f) {
-        var li = document.createElement("li");
-        li.innerHTML = "<span></span><span></span>";
-        li.firstChild.textContent = f.name;
-        li.lastChild.textContent = formatSize(f.size);
-        fileList.appendChild(li);
-      });
-    };
-
     var openDialog = function () {
       if (submitDialog.showModal) { submitDialog.showModal(); } else { submitDialog.setAttribute("open", ""); }
     };
     var closeDialog = function () {
-      if (sendBtn.disabled) { return; }
       if (submitDialog.close) { submitDialog.close(); } else { submitDialog.removeAttribute("open"); }
     };
-
     document.querySelectorAll("[data-open-submit]").forEach(function (btn) {
       btn.addEventListener("click", openDialog);
     });
@@ -224,53 +199,20 @@
     submitDialog.addEventListener("click", function (e) {
       if (e.target === submitDialog) { closeDialog(); }
     });
-    submitDialog.addEventListener("cancel", function (e) {
-      if (sendBtn.disabled) { e.preventDefault(); }
-    });
-    fileInput.addEventListener("change", listFiles);
     if (window.location.hash === "#submit") { openDialog(); }
-
-    submitForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      errorEl.hidden = true;
-
-      var files = Array.prototype.slice.call(fileInput.files || []);
-      var total = files.reduce(function (sum, f) { return sum + f.size; }, 0);
-      var showError = function (message) {
-        errorEl.textContent = message;
-        errorEl.hidden = false;
-      };
-      if (!files.length) { showError("Please choose your completed PDF."); return; }
-      if (total > MAX_UPLOAD_BYTES) {
-        showError("Your files add up to " + formatSize(total) + ", and the limit is 4 MB. " +
-          "Please email them to give@monumentalrecovery.org instead.");
-        return;
-      }
-
-      var label = sendBtn.textContent;
-      sendBtn.disabled = true;
-      sendBtn.textContent = "Sending\u2026";
-
-      fetch(submitForm.getAttribute("action"), { method: "POST", body: new FormData(submitForm) })
-        .then(function (res) {
-          return res.json().catch(function () { return {}; }).then(function (body) {
-            if (!res.ok || !body.ok) {
-              throw new Error(body.error || "We could not send your form. Please try again.");
-            }
-            window.location.href = "application-received.html";
-          });
-        })
-        .catch(function (err) {
-          var message = err && err.message ? err.message : "";
-          if (!message || /failed to fetch|networkerror|load failed/i.test(message)) {
-            message = "We could not reach the server. Check your connection and try again, or email give@monumentalrecovery.org.";
-          }
-          showError(message);
-          sendBtn.disabled = false;
-          sendBtn.textContent = label;
-        });
-    });
   }
+
+  /* Copy-to-clipboard buttons -------------------------------------------- */
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (!navigator.clipboard) { return; }
+      navigator.clipboard.writeText(btn.getAttribute("data-copy")).then(function () {
+        var label = btn.textContent;
+        btn.textContent = "Copied";
+        setTimeout(function () { btn.textContent = label; }, 1800);
+      });
+    });
+  });
 
   /* Footer year ---------------------------------------------------------- */
   var year = document.querySelectorAll(".js-year");
