@@ -451,6 +451,9 @@ section:not(.band-warm):not(.band-navy) .card { background: var(--sunken); }
 .apply-step p { flex: 0 0 auto; }
 .apply-step .apply-desc { flex: 1 0 auto; }
 .apply-step .btn { margin-top: 0.5rem; }
+.next-steps { display: grid; gap: clamp(1rem, 2vw, 1.4rem); }
+.next-steps .card p:last-child { margin-bottom: 0; }
+.next-steps .btn { margin-top: 0.4rem; }
 .apply-meta { margin: 0.65rem 0 0; font-size: 0.85rem; color: var(--navy-soft); }
 
 .submit-dialog {

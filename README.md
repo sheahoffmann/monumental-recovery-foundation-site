@@ -13,6 +13,8 @@ apply.html                 Scholarship application (Netlify form + file uploads 
 sharon.html                Memorial page for Sharon Elaine Bunnett (checks only, noindex)
 thank-you.html             Contact form confirmation
 application-received.html  Confirmation after a form is submitted
+next-steps-applicant.html  Shown after the applicant PDF download starts
+next-steps-clinician.html  Shown after the clinician PDF download starts
 assets/scholarship-application.pdf  Paper version of the application (linked from apply.html)
 donation-thank-you.html    Post-donation confirmation (Stripe returns here)
 style.css                  All styling (brand tokens at the top)

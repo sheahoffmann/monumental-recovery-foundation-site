@@ -171,6 +171,15 @@
     }
   }
 
+  /* After a PDF download starts, show the next-steps page ---------------- */
+  document.querySelectorAll("a[download][data-next]").forEach(function (link) {
+    link.addEventListener("click", function () {
+      var next = link.getAttribute("data-next");
+      // Give the browser a moment to start the download before leaving.
+      setTimeout(function () { window.location.href = next; }, 600);
+    });
+  });
+
   /* Scholarship Submit dialog -------------------------------------------- */
   var submitDialog = document.getElementById("submit-dialog");
   if (submitDialog) {
