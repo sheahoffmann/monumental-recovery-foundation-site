@@ -48,6 +48,11 @@
       <p class="eyebrow">Scholarship application</p>
       <h1>Apply for a scholarship.</h1>
       <p class="lede">We help men with a substance use disorder attend high-quality extended care treatment they could not otherwise afford. Scholarships are paid directly to the treatment program, never to the applicant or his family.</p>
+      <div class="btn-row" style="margin-bottom:1.5rem;">
+        <a class="btn" href="#application">Apply online</a>
+        <a class="btn btn-ghost" href="assets/scholarship-application.pdf" download>Download the PDF to fill out by hand</a>
+      </div>
+      <p class="small muted">Are you a clinician recommending an applicant? <a href="#clinician">Submit your recommendation here</a>.</p>
       <p class="crisis-note"><strong>If you are in crisis or thinking about harming yourself, call or text <a href="tel:988">988</a> (Suicide &amp; Crisis Lifeline) or call 911.</strong> Do not wait for a scholarship decision to get help.</p>
     </div>
   </section>
@@ -69,10 +74,11 @@
           <h3>How to apply</h3>
           <ol>
             <li>Complete Sections 1 through 6 and Section 9 yourself.</li>
-            <li>Ask your clinician, therapist, physician, or interventionist to complete Section 7, or to send a letter.</li>
+            <li>Ask your clinician, therapist, physician, or interventionist to complete Section 7. They submit it to us separately, using the clinician form at the bottom of this page.</li>
             <li>Upload the documents listed in Section 8.</li>
             <li>Submit. A family member or referring professional may help you, but you must sign the application yourself.</li>
           </ol>
+          <p class="small" style="margin:1rem 0 0;">Prefer paper? <a href="assets/scholarship-application.pdf" download>Download the application (PDF)</a>, fill it out by hand, and email it with your documents to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a>.</p>
         </article>
         <article class="card">
           <h3>What happens next</h3>
@@ -91,9 +97,9 @@
   </section>
 
   <!-- Application ------------------------------------------------------- -->
-  <section>
+  <section id="application" style="scroll-margin-top:5rem;">
     <div class="wrap-narrow">
-      <form class="app-form" id="scholarship-form" name="scholarship-application" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company" action="application-received.html">
+      <form class="app-form js-netlify-form" id="scholarship-form" name="scholarship-application" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company" action="application-received.html">
         <input type="hidden" name="form-name" value="scholarship-application">
         <p class="hp"><label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
 
@@ -591,94 +597,17 @@
         <div class="app-section" id="section-7">
           <p class="app-section-num">Section 7</p>
           <h2>Clinical recommendation</h2>
-          <p class="muted">To be completed by a licensed professional (physician, psychiatrist, psychologist, LPC, LCSW, LAC, LMFT, or equivalent) who has evaluated the applicant. Your clinician has three options:</p>
-          <ul class="muted">
-            <li>Fill in this section with you now,</li>
-            <li>Write a letter or assessment that you upload in Section 8, or</li>
-            <li>Email it directly to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a> with your name in the subject line.</li>
-          </ul>
-
-          <details class="clinician-panel">
-            <summary>My clinician is completing this section here</summary>
-            <div class="clinician-body">
-              <div class="field-row">
-                <div class="field">
-                  <label for="clin_name">Clinician name and credentials</label>
-                  <input type="text" id="clin_name" name="clinician_name_credentials">
-                </div>
-                <div class="field">
-                  <label for="clin_license">License number and state</label>
-                  <input type="text" id="clin_license" name="clinician_license">
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label for="clin_org">Organization</label>
-                  <input type="text" id="clin_org" name="clinician_organization">
-                </div>
-                <div class="field">
-                  <label for="clin_contact">Phone and email</label>
-                  <input type="text" id="clin_contact" name="clinician_phone_email">
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label for="clin_eval_date">Date of evaluation</label>
-                  <input type="date" id="clin_eval_date" name="clinician_evaluation_date">
-                </div>
-                <div class="field">
-                  <label for="clin_known">How long have you known or treated the applicant?</label>
-                  <input type="text" id="clin_known" name="clinician_time_known">
-                </div>
-              </div>
-              <div class="field">
-                <label for="clin_dx">Substance use disorder diagnosis (DSM-5) and severity</label>
-                <input type="text" id="clin_dx" name="clinician_sud_diagnosis">
-              </div>
-              <div class="field">
-                <label for="clin_cooccurring">Co-occurring mental health or medical conditions relevant to placement</label>
-                <input type="text" id="clin_cooccurring" name="clinician_cooccurring_conditions">
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label for="clin_asam">ASAM level of care recommended</label>
-                  <input type="text" id="clin_asam" name="clinician_asam_level">
-                </div>
-                <div class="field">
-                  <label for="clin_los">Recommended length of stay</label>
-                  <input type="text" id="clin_los" name="clinician_recommended_length_of_stay">
-                </div>
-              </div>
-              <fieldset class="field choices">
-                <legend>Is extended care clinically appropriate for this applicant?</legend>
-                <div class="choice-row">
-                  <label class="choice"><input type="radio" name="clinician_extended_care_appropriate" value="Yes"> Yes</label>
-                  <label class="choice"><input type="radio" name="clinician_extended_care_appropriate" value="No"> No</label>
-                </div>
-              </fieldset>
-              <div class="field">
-                <label for="clin_programs">Programs you recommend, if any</label>
-                <input type="text" id="clin_programs" name="clinician_recommended_programs">
-              </div>
-              <div class="field">
-                <label for="clin_rationale">Clinical rationale</label>
-                <p class="field-hint" id="clin_rationale_hint">Briefly explain why this level of care is recommended and what risks the applicant faces without it.</p>
-                <textarea id="clin_rationale" name="clinician_rationale" aria-describedby="clin_rationale_hint"></textarea>
-              </div>
-              <h3 class="app-subhead">Clinician attestation</h3>
-              <label class="choice choice-block"><input type="checkbox" name="clinician_attestation" value="Attested"> I attest that I am licensed in good standing, that I evaluated this applicant, and that the information above is accurate to the best of my knowledge.</label>
-              <div class="field-row" style="margin-top:1.15rem;">
-                <div class="field">
-                  <label for="clin_sig">Clinician signature <span class="muted">(type full name)</span></label>
-                  <input type="text" id="clin_sig" name="clinician_signature" class="sig-input">
-                </div>
-                <div class="field">
-                  <label for="clin_sig_date">Date</label>
-                  <input type="date" id="clin_sig_date" name="clinician_signature_date">
-                </div>
-              </div>
-            </div>
-          </details>
+          <p>This section is completed by a licensed professional who has evaluated you (physician, psychiatrist, psychologist, LPC, LCSW, LAC, LMFT, or equivalent), not by you. Send them this link:</p>
+          <div class="share-link">
+            <code id="clinician-link">monumentalrecovery.org/apply.html#clinician</code>
+            <button class="btn btn-ghost btn-small" type="button" data-copy="https://monumentalrecovery.org/apply.html#clinician">Copy link</button>
+          </div>
+          <p class="muted">They can submit the recommendation online, email a letter or assessment to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a>, or fill out Section 7 of the <a href="assets/scholarship-application.pdf" download>paper application</a>. If they've already given you a letter, you can upload it in Section 8 instead.</p>
+          <label class="choice choice-block" style="margin-top:1rem;"><input type="checkbox" name="clinician_asked" value="Yes"> I have asked my clinician to send a recommendation.</label>
+          <div class="field" style="margin-bottom:0;">
+            <label for="clinician_name_applicant">Clinician's name and organization <span class="muted">(if you know who it will be)</span></label>
+            <input type="text" id="clinician_name_applicant" name="clinician_name_from_applicant">
+          </div>
         </div>
 
         <!-- Section 8 -->
@@ -710,7 +639,7 @@
               <input type="file" id="file_ins_letter" name="file_insurance_letter" accept="image/*,.pdf,.doc,.docx">
             </div>
             <div class="upload">
-              <label for="file_clinical">Clinical recommendation letter <span class="muted">(if not completed in Section 7)</span></label>
+              <label for="file_clinical">Clinical recommendation letter <span class="muted">(if your clinician gave one to you)</span></label>
               <input type="file" id="file_clinical" name="file_clinical_recommendation" accept="image/*,.pdf,.doc,.docx">
             </div>
             <div class="upload">
@@ -779,14 +708,148 @@
             </div>
             <div class="field">
               <label for="sig_date">Date <span class="req" aria-hidden="true">*</span></label>
-              <input type="date" id="sig_date" name="signature_date" required>
+              <input type="date" id="sig_date" name="signature_date" class="js-today" required>
             </div>
           </div>
         </div>
 
-        <button class="btn" type="submit" id="apply-submit" style="width:100%;justify-content:center;">Submit application</button>
-        <p class="form-error" id="apply-error" role="alert" hidden></p>
+        <button class="btn" type="submit" style="width:100%;justify-content:center;">Submit application</button>
+        <p class="form-error" role="alert" hidden></p>
         <p class="give-note">Your application goes only to the Foundation at give@monumentalrecovery.org. Questions before you submit? Email us or use the <a href="contact.html?reason=scholarship">contact form</a>.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Clinician recommendation ------------------------------------------ -->
+  <section class="band-warm" id="clinician" style="scroll-margin-top:5rem;">
+    <div class="wrap-narrow">
+      <p class="eyebrow">For clinicians</p>
+      <h2>Section 7: Clinical recommendation</h2>
+      <p class="lede">If someone has asked you to recommend him for a scholarship, please complete this form.</p>
+      <p class="muted">It goes straight to the Foundation and is matched to the applicant's file by name. You may upload a letter or assessment instead of completing every field. Prefer paper? Fill out Section 7 of the <a href="assets/scholarship-application.pdf" download>PDF application</a> and email it to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a>.</p>
+
+      <form class="app-form js-netlify-form" id="clinician-form" name="clinical-recommendation" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company" action="recommendation-received.html" style="margin-top:2rem;">
+        <input type="hidden" name="form-name" value="clinical-recommendation">
+        <p class="hp"><label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+
+        <div class="app-section">
+          <p class="app-section-num">The applicant</p>
+          <h2>Who you are recommending</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="c_applicant_name">Applicant's full name <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="c_applicant_name" name="applicant_name" required autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="c_applicant_dob">Applicant's date of birth</label>
+              <input type="date" id="c_applicant_dob" name="applicant_date_of_birth">
+            </div>
+          </div>
+          <p class="field-hint" style="margin:0;">Date of birth is optional but helps us match your recommendation to the right application.</p>
+        </div>
+
+        <div class="app-section">
+          <p class="app-section-num">The clinician</p>
+          <h2>Your information</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="clin_name">Clinician name and credentials <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="clin_name" name="clinician_name_credentials" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="clin_license">License number and state <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="clin_license" name="clinician_license" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="clin_org">Organization</label>
+            <input type="text" id="clin_org" name="clinician_organization" autocomplete="organization">
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="clin_phone">Phone</label>
+              <input type="tel" id="clin_phone" name="clinician_phone" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="clin_email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="clin_email" name="clinician_email" autocomplete="email" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-section">
+          <p class="app-section-num">The recommendation</p>
+          <h2>Clinical assessment</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="clin_eval_date">Date of evaluation</label>
+              <input type="date" id="clin_eval_date" name="evaluation_date">
+            </div>
+            <div class="field">
+              <label for="clin_known">How long have you known or treated the applicant?</label>
+              <input type="text" id="clin_known" name="time_known">
+            </div>
+          </div>
+          <div class="field">
+            <label for="clin_dx">Substance use disorder diagnosis (DSM-5) and severity</label>
+            <input type="text" id="clin_dx" name="sud_diagnosis">
+          </div>
+          <div class="field">
+            <label for="clin_cooccurring">Co-occurring mental health or medical conditions relevant to placement</label>
+            <input type="text" id="clin_cooccurring" name="cooccurring_conditions">
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="clin_asam">ASAM level of care recommended</label>
+              <input type="text" id="clin_asam" name="asam_level">
+            </div>
+            <div class="field">
+              <label for="clin_los">Recommended length of stay</label>
+              <input type="text" id="clin_los" name="recommended_length_of_stay">
+            </div>
+          </div>
+          <fieldset class="field choices">
+            <legend>Is extended care clinically appropriate for this applicant?</legend>
+            <div class="choice-row">
+              <label class="choice"><input type="radio" name="extended_care_appropriate" value="Yes"> Yes</label>
+              <label class="choice"><input type="radio" name="extended_care_appropriate" value="No"> No</label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="clin_programs">Programs you recommend, if any</label>
+            <input type="text" id="clin_programs" name="recommended_programs">
+          </div>
+          <div class="field">
+            <label for="clin_rationale">Clinical rationale</label>
+            <p class="field-hint" id="clin_rationale_hint">Briefly explain why this level of care is recommended and what risks the applicant faces without it.</p>
+            <textarea id="clin_rationale" name="clinical_rationale" aria-describedby="clin_rationale_hint"></textarea>
+          </div>
+          <div class="upload" style="border-bottom:0;padding-bottom:0;">
+            <label for="clin_file">Letter or assessment <span class="muted">(optional, instead of or in addition to the fields above)</span></label>
+            <input type="file" id="clin_file" name="file_clinician_letter" accept="image/*,.pdf,.doc,.docx">
+          </div>
+        </div>
+
+        <div class="app-section">
+          <p class="app-section-num">Attestation</p>
+          <h2>Clinician attestation</h2>
+          <label class="choice choice-block"><input type="checkbox" name="clinician_attestation" value="Attested" required> I attest that I am licensed in good standing, that I evaluated this applicant, and that the information above is accurate to the best of my knowledge. <span class="req" aria-hidden="true">*</span></label>
+          <p class="field-hint">Typing your full name below is your electronic signature.</p>
+          <div class="field-row">
+            <div class="field">
+              <label for="clin_sig">Clinician signature <span class="muted">(type full name)</span> <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="clin_sig" name="clinician_signature" class="sig-input" required autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="clin_sig_date">Date <span class="req" aria-hidden="true">*</span></label>
+              <input type="date" id="clin_sig_date" name="signature_date" class="js-today" required>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn" type="submit" style="width:100%;justify-content:center;">Submit recommendation</button>
+        <p class="form-error" role="alert" hidden></p>
+        <p class="give-note">Your recommendation goes only to the Foundation at give@monumentalrecovery.org and is kept with the applicant's confidential file.</p>
       </form>
     </div>
   </section>
