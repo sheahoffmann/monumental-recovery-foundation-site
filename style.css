@@ -594,7 +594,7 @@ section:not(.band-warm):not(.band-navy) .card { background: var(--sunken); }
 @media (max-width: 820px) { .footer-grid { grid-template-columns: 1fr; } }
 .site-footer img.footer-logo { width: 236px; margin-bottom: 1.1rem; }
 .site-footer .footer-tagline { font-family: var(--font-display); font-style: italic; font-size: 1.02rem; line-height: 1.45; max-width: 30ch; margin: 0 0 1rem; color: rgba(245, 241, 232, 0.9); }
-.site-footer h4 { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy-mist); margin-bottom: 0.9rem; }
+.site-footer h3, .site-footer h4 { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy-mist); margin-bottom: 0.9rem; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; }
 .site-footer li { margin-bottom: 0.55rem; }
 .site-footer a { color: var(--creme); text-decoration: none; opacity: 0.86; }
