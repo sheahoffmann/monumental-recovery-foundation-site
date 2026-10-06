@@ -171,6 +171,114 @@
     }
   }
 
+  /* Scholarship application ---------------------------------------------- */
+  var applyForm = document.getElementById("scholarship-form");
+  if (applyForm) {
+    var applyBtn = document.getElementById("apply-submit");
+    var applyError = document.getElementById("apply-error");
+    var MAX_BYTES = 7.5 * 1024 * 1024; // Netlify Forms caps a submission at 8 MB
+    var dirty = false;
+    var submitting = false;
+
+    // Default the signature date to today.
+    var sigDate = document.getElementById("sig_date");
+    if (sigDate && !sigDate.value) {
+      var now = new Date();
+      sigDate.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    }
+
+    // Typing in an "Other:" box selects its option.
+    applyForm.querySelectorAll(".choice-other").forEach(function (wrap) {
+      var option = wrap.querySelector("input[type=radio], input[type=checkbox]");
+      var detail = wrap.querySelector("input[type=text], input[type=date]");
+      if (option && detail) {
+        detail.addEventListener("input", function () {
+          if (detail.value) { option.checked = true; }
+        });
+      }
+    });
+
+    applyForm.addEventListener("input", function () { dirty = true; });
+    window.addEventListener("beforeunload", function (e) {
+      if (dirty && !submitting) { e.preventDefault(); e.returnValue = ""; }
+    });
+
+    var showApplyError = function (message) {
+      applyError.textContent = message;
+      applyError.hidden = false;
+    };
+
+    // Re-encode phone photos as smaller JPEGs so several fit under the cap.
+    var shrinkImage = function (file) {
+      if (!/^image\/(jpeg|png|webp|heic|heif)$/i.test(file.type) || file.size < 400 * 1024 ||
+          !window.createImageBitmap) {
+        return Promise.resolve(file);
+      }
+      return createImageBitmap(file).then(function (bmp) {
+        var scale = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+        var canvas = document.createElement("canvas");
+        canvas.width = Math.round(bmp.width * scale);
+        canvas.height = Math.round(bmp.height * scale);
+        canvas.getContext("2d").drawImage(bmp, 0, 0, canvas.width, canvas.height);
+        return new Promise(function (resolve) {
+          canvas.toBlob(function (blob) {
+            if (!blob || blob.size >= file.size) { resolve(file); return; }
+            resolve(new File([blob], file.name.replace(/\.[^.]+$/, "") + ".jpg", { type: "image/jpeg" }));
+          }, "image/jpeg", 0.82);
+        });
+      }).catch(function () { return file; });
+    };
+
+    applyForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      applyError.hidden = true;
+
+      var data = new FormData(applyForm);
+      var fileInputs = applyForm.querySelectorAll("input[type=file]");
+      var label = applyBtn.textContent;
+      applyBtn.disabled = true;
+      applyBtn.textContent = "Preparing your application…";
+
+      Promise.all(Array.prototype.map.call(fileInputs, function (input) {
+        var file = input.files && input.files[0];
+        return file ? shrinkImage(file).then(function (f) { data.set(input.name, f, f.name); }) : null;
+      }))
+        .then(function () {
+          var total = 0;
+          var biggest = null;
+          fileInputs.forEach(function (input) {
+            var f = data.get(input.name);
+            if (f && f.size) {
+              total += f.size;
+              if (!biggest || f.size > biggest.size) { biggest = f; }
+            }
+          });
+          if (total > MAX_BYTES) {
+            throw new Error(
+              "Your uploads add up to " + (total / 1048576).toFixed(1) + " MB, and the limit is 8 MB. " +
+              "Remove the largest file (" + biggest.name + ") and email it to give@monumentalrecovery.org instead, then submit again."
+            );
+          }
+          applyBtn.textContent = "Sending…";
+          return fetch("/", { method: "POST", body: data });
+        })
+        .then(function (res) {
+          if (!res.ok) { throw new Error("We could not submit your application. Please try again."); }
+          submitting = true;
+          window.location.href = applyForm.getAttribute("action");
+        })
+        .catch(function (err) {
+          var message = err && err.message ? err.message : "";
+          if (!message || /failed to fetch|networkerror|load failed/i.test(message)) {
+            message = "We could not reach the server. Check your connection and try again, or email give@monumentalrecovery.org.";
+          }
+          showApplyError(message);
+          applyBtn.disabled = false;
+          applyBtn.textContent = label;
+        });
+    });
+  }
+
   /* Footer year ---------------------------------------------------------- */
   var year = document.querySelectorAll(".js-year");
   year.forEach(function (el) { el.textContent = new Date().getFullYear(); });

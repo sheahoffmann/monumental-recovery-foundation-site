@@ -9,8 +9,10 @@ index.html                 Home
 story.html                 Story
 donate.html                Donate (Stripe Checkout)
 contact.html               Contact (Netlify form -> thank-you.html)
+apply.html                 Scholarship application (Netlify form + file uploads -> application-received.html)
 sharon.html                Memorial page for Sharon Elaine Bunnett (checks only, noindex)
 thank-you.html             Contact form confirmation
+application-received.html  Scholarship application confirmation
 donation-thank-you.html    Post-donation confirmation (Stripe returns here)
 style.css                  All styling (brand tokens at the top)
 main.js                    Nav, scroll reveal, headline reveal, donation checkout
@@ -99,6 +101,14 @@ you're doing it by hand at volume.
 4. **Contact form.** Uses Netlify Forms (`data-netlify="true"`), so it only works once
    deployed to Netlify — enable form notifications in the Netlify dashboard so
    submissions email you.
+5. **Scholarship application.** `apply.html` is a second Netlify form named
+   `scholarship-application`. To have applications emailed to give@monumentalrecovery.org:
+   Netlify → your site → **Forms → Form notifications → Add notification → Email
+   notification**, choose the `scholarship-application` form, and enter
+   give@monumentalrecovery.org. Uploaded documents appear as links in the email and in
+   the Netlify Forms dashboard. Netlify caps a submission at 8 MB, so the page shrinks
+   photos before sending and tells the applicant to email anything that still won't fit.
+   Check your Netlify plan's monthly limits on form submissions and file uploads.
 
 ## Notes
 - Copy is grounded in the draft bylaws: direct-to-program disbursement, the Board and
