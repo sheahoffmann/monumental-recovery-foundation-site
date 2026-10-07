@@ -410,11 +410,3 @@ body.gala .site-footer { position: relative; z-index: 2; background: #070a13; bo
   .g-title-big, .ticker-track, .mono-tag .dot, .scroll-cue span { animation: none; }
   .tier:hover { transform: none; }
 }
-
-/* Auction vs raffle groups ------------------------------------------------- */
-.lot-group + .lot-group { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
-.lot-group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.2rem; margin-bottom: 1.1rem; }
-.lot-group-head h3 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin: 0; }
-.lot-group-head p { margin: 0; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.08em; color: var(--g-dim); }
-.lots-raffle li { background: linear-gradient(180deg, var(--g-ink) 0%, #0f1424 100%); }
-.lots-raffle .lot-n { color: var(--g-silver); }
