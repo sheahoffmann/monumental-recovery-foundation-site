@@ -10,6 +10,7 @@ step). If you add a new public file at the top level, add it to the `command` in
 ```
 index.html                 Home
 story.html                 Story
+taste-of-recovery.html     Taste of Recovery 2027 gala page, UNLISTED: noindex, not linked anywhere (3D trophy: assets/event/, three.js in assets/vendor/)
 donate.html                Donate (Stripe Checkout)
 contact.html               Contact (Netlify form -> thank-you.html)
 apply.html                 Scholarship application: PDF downloads + Submit (email) instructions
@@ -78,6 +79,26 @@ leaves Netlify's server.
 Amounts are validated at $1–$50,000. To change that, edit `MIN_USD` / `MAX_USD` in
 `netlify/functions/create-checkout-session.js` and the `min` / `max` on the amount
 input in `donate.html`.
+
+### Launching the Taste of Recovery page publicly
+It is live but unlisted: reachable only by its URL (monumentalrecovery.org/taste-of-recovery.html).
+To make it public:
+1. Delete the `<meta name="robots" ...>` tag and the comment under it in `taste-of-recovery.html`.
+2. Add `<a href="taste-of-recovery.html">Gala</a>` after the Story link in each page's nav,
+   and `<li><a href="taste-of-recovery.html">Taste of Recovery 2027</a></li>` after Story in each footer
+   (404.html uses `/taste-of-recovery.html`).
+3. Add it to `sitemap.xml`.
+4. Remove `hidden` from the `event` option in `contact.html`.
+
+### Golf hole sponsorships (Taste of Recovery page)
+Each hole on `taste-of-recovery.html` is a button. Clicking an open hole asks for the
+sponsoring facility, then `create-checkout-session` (with `kind: "hole"`) starts a $500
+Stripe Checkout. The hole number and facility are saved as metadata on the payment and
+shown in the payment description, so they appear in the Stripe dashboard and on the
+checkout page. `netlify/functions/golf-holes.js` asks Stripe which holes have a
+succeeded payment, and the page turns those gold and disables them. Stripe is the only
+record: to free a hole up again, refund the payment in Stripe. Uses the same
+`STRIPE_SECRET_KEY`; nothing else to set up.
 
 ### Fees and the nonprofit rate
 You'll start on Stripe's standard rate. Stripe offers a discounted nonprofit rate, but

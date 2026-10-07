@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!-- Unlisted for now: not in the nav, footers, or sitemap. To launch publicly, remove this robots tag and re-add the links (see README). -->
+<meta name="theme-color" content="#0b0f1c">
+<title>Taste of Recovery 2027 | Monumental Recovery Foundation</title>
+<meta name="description" content="Taste of Recovery: a black-tie culinary competition and gala honoring the chefs of the recovery field. June 16–18, 2027 at Recovery Nexus, Colorado Springs. Proceeds fund Monumental Recovery Foundation scholarships.">
+<link rel="canonical" href="https://monumentalrecovery.org/taste-of-recovery.html">
+<meta property="og:title" content="Taste of Recovery 2027">
+<meta property="og:description" content="Ten chefs. Ten courses. One hundred guests. One trophy. A black-tie gala honoring the chefs who feed recovery.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://monumentalrecovery.org/assets/logo-tagline.png">
+<meta property="og:url" content="https://monumentalrecovery.org/taste-of-recovery.html">
+<meta property="og:site_name" content="Monumental Recovery Foundation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Taste of Recovery 2027">
+<meta name="twitter:description" content="Ten chefs. Ten courses. One hundred guests. One trophy.">
+<meta name="twitter:image" content="https://monumentalrecovery.org/assets/logo-tagline.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "Taste of Recovery 2027", "description": "A black-tie culinary competition and fundraising gala honoring chefs from treatment programs across the country. Proceeds fund scholarships for men seeking extended addiction treatment.", "startDate": "2027-06-16", "endDate": "2027-06-18", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Recovery Nexus", "address": {"@type": "PostalAddress", "streetAddress": "15790 Kingswood Drive", "addressLocality": "Colorado Springs", "addressRegion": "CO", "postalCode": "80921", "addressCountry": "US"}}, "organizer": {"@id": "https://monumentalrecovery.org/#organization", "@type": "NGO", "name": "Monumental Recovery Foundation", "url": "https://monumentalrecovery.org/"}, "url": "https://monumentalrecovery.org/taste-of-recovery.html"}</script>
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon-512.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/event/event.css">
+<link rel="modulepreload" href="assets/vendor/three.module.min.js">
+</head>
+<body class="gala">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- The trophy. Fixed behind the page; event.js turns it as you scroll. -->
+<div class="stage" aria-hidden="true">
+  <canvas id="trophy-canvas"></canvas>
+  <img class="stage-fallback" src="assets/event/trophy-fallback.png" alt="" width="286" height="387">
+</div>
+<div class="stage-grid" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="Monumental Recovery Foundation, home">
+      <img src="assets/logo-creme.png" alt="Monumental Recovery Foundation" width="680" height="157">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="story.html">Story</a>
+      <a href="taste-of-recovery.html" class="is-active" aria-current="page">Gala</a>
+      <a href="contact.html">Contact</a>
+      <a href="apply.html" class="btn btn-ghost">Apply</a>
+      <a href="sharon.html" class="btn btn-pink">Sharon</a>
+      <a href="donate.html" class="btn">Donate</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Scroll progress, styled as a course counter -->
+<div class="course-meter" aria-hidden="true">
+  <span class="course-meter-label">Course</span>
+  <span class="course-meter-num" id="meter-num">01</span>
+  <span class="course-meter-of">/ 10</span>
+  <span class="course-meter-bar"><span id="meter-fill"></span></span>
+</div>
+
+<main id="main">
+
+  <!-- Hero ------------------------------------------------------------- -->
+  <section class="g-hero" data-stage="hero">
+    <div class="wrap">
+      <div class="g-col">
+        <p class="mono-tag"><span class="dot"></span> 2027 &middot; First annual</p>
+        <h1 class="g-title">
+          <span class="g-title-small">Taste of</span>
+          <span class="g-title-big">Recovery</span>
+        </h1>
+        <p class="g-lede">A black-tie culinary competition honoring the chefs who feed recovery &mdash; and the people in this field doing great work every day.</p>
+
+        <dl class="g-facts">
+          <div><dt>When</dt><dd>June 16&ndash;18, 2027</dd></div>
+          <div><dt>Where</dt><dd>Recovery Nexus &middot; Colorado Springs</dd></div>
+          <div><dt>Dress</dt><dd>Black tie</dd></div>
+        </dl>
+
+        <div class="countdown" id="countdown" aria-label="Time until gala night">
+          <div><span data-cd="d">000</span><small>Days</small></div>
+          <div><span data-cd="h">00</span><small>Hrs</small></div>
+          <div><span data-cd="m">00</span><small>Min</small></div>
+          <div><span data-cd="s">00</span><small>Sec</small></div>
+        </div>
+
+        <div class="btn-row">
+          <a class="btn btn-silver" href="#involved">Reserve a seat</a>
+          <a class="btn btn-outline-light" href="#involved">Enter a chef</a>
+        </div>
+      </div>
+    </div>
+    <p class="scroll-cue" aria-hidden="true"><span></span>Scroll to turn the trophy</p>
+  </section>
+
+  <!-- Course ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Amuse-bouche</span><i>&#9670;</i><span>Crudo</span><i>&#9670;</i><span>Soup</span><i>&#9670;</i><span>Salad</span><i>&#9670;</i><span>Pasta</span><i>&#9670;</i><span>Vegetable</span><i>&#9670;</i><span>Fish</span><i>&#9670;</i><span>Intermezzo</span><i>&#9670;</i><span>Main</span><i>&#9670;</i><span>Dessert</span><i>&#9670;</i>
+      <span>Amuse-bouche</span><i>&#9670;</i><span>Crudo</span><i>&#9670;</i><span>Soup</span><i>&#9670;</i><span>Salad</span><i>&#9670;</i><span>Pasta</span><i>&#9670;</i><span>Vegetable</span><i>&#9670;</i><span>Fish</span><i>&#9670;</i><span>Intermezzo</span><i>&#9670;</i><span>Main</span><i>&#9670;</i><span>Dessert</span><i>&#9670;</i>
+    </div>
+  </div>
+
+  <!-- Why ---------------------------------------------------------------- -->
+  <section data-stage="right">
+    <div class="wrap">
+      <div class="g-col reveal">
+        <p class="mono-tag">01 &mdash; Why we gather</p>
+        <h2>The people behind the plate.</h2>
+        <p class="g-body-lg">In every good treatment program there is a kitchen, and in that kitchen is a chef cooking three meals a day for people at the hardest point of their lives. It is skilled, steady, caring work &mdash; and it rarely gets a spotlight.</p>
+        <p class="g-body">Taste of Recovery is that spotlight. One night a year, chefs from leading treatment programs across the country cook for a room full of the people who know exactly what they do. We celebrate them, we celebrate everyone in this space who shows up for patients daily, and every dollar raised goes toward getting more men into the care they deserve.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Numbers ------------------------------------------------------------ -->
+  <section data-stage="right" class="g-numbers-wrap">
+    <div class="wrap">
+      <div class="g-col">
+        <p class="mono-tag">02 &mdash; The format</p>
+        <div class="g-numbers reveal">
+          <div class="g-num"><span class="g-num-val" data-count="10">10</span><span class="g-num-label">Chefs</span><span class="g-num-note">from treatment programs nationwide</span></div>
+          <div class="g-num"><span class="g-num-val" data-count="10">10</span><span class="g-num-label">Courses</span><span class="g-num-note">one per chef, assigned by draw</span></div>
+          <div class="g-num"><span class="g-num-val" data-count="100">100</span><span class="g-num-label">Guests</span><span class="g-num-note">every one of them a judge</span></div>
+          <div class="g-num"><span class="g-num-val" data-count="1">1</span><span class="g-num-label">Trophy</span><span class="g-num-note">engraved with each year&rsquo;s winner</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The menu ----------------------------------------------------------- -->
+  <section data-stage="dim" id="menu">
+    <div class="wrap">
+      <div class="g-head reveal">
+        <p class="mono-tag">03 &mdash; The menu</p>
+        <h2>Ten courses. Every plate cooked blind.</h2>
+        <p class="g-body">Each chef draws a course, from amuse-bouche through dessert, and cooks it for all one hundred guests. Plates arrive with no name attached. Guests taste, score, and only learn who cooked what when the night is over.</p>
+      </div>
+
+      <ol class="menu reveal" id="menu-list">
+        <li class="menu-row"><span class="menu-n">01</span><span class="menu-course">Amuse-bouche</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">02</span><span class="menu-course">Crudo</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">03</span><span class="menu-course">Soup</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">04</span><span class="menu-course">Salad</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">05</span><span class="menu-course">Pasta</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">06</span><span class="menu-course">Vegetable</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">07</span><span class="menu-course">Fish</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">08</span><span class="menu-course">Intermezzo</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">09</span><span class="menu-course">Main</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+        <li class="menu-row"><span class="menu-n">10</span><span class="menu-course">Dessert</span><span class="menu-chef" data-redact>Chef revealed at the close</span></li>
+      </ol>
+      <p class="mono-fine">Course order is set by draw. The full menu and competing chefs are announced closer to the event.</p>
+    </div>
+  </section>
+
+  <!-- Three days --------------------------------------------------------- -->
+  <section data-stage="dim" id="schedule" class="g-panel">
+    <div class="wrap">
+      <div class="g-head reveal">
+        <p class="mono-tag">04 &mdash; Three days</p>
+        <h2>The weekend, course by course.</h2>
+      </div>
+
+      <div class="days reveal">
+        <div class="day-tabs" role="tablist" aria-label="Event days">
+          <button role="tab" id="tab-1" aria-controls="day-1" aria-selected="false" tabindex="-1">
+            <span class="day-date">Wed &middot; Jun 16</span><span class="day-name">Arrive &amp; prep</span>
+          </button>
+          <button role="tab" id="tab-2" aria-controls="day-2" aria-selected="true">
+            <span class="day-date">Thu &middot; Jun 17</span><span class="day-name">Golf &amp; gala</span>
+          </button>
+          <button role="tab" id="tab-3" aria-controls="day-3" aria-selected="false" tabindex="-1">
+            <span class="day-date">Fri &middot; Jun 18</span><span class="day-name">Travel home</span>
+          </button>
+        </div>
+
+        <div class="day-panel" role="tabpanel" id="day-1" aria-labelledby="tab-1" hidden>
+          <ol class="timeline">
+            <li><span class="t-when">All day</span><div><h3>Guests and chefs fly in</h3><p>Out-of-town guests arrive in Colorado Springs and settle in. Room block details are shared with ticket holders.</p></div></li>
+            <li><span class="t-when">Afternoon</span><div><h3>Chefs source and shop</h3><p>Competing chefs pick up the ingredients they need for their course.</p></div></li>
+            <li><span class="t-when">Evening</span><div><h3>Prep begins</h3><p>Chefs get a head start on anything that needs time &mdash; stocks, cures, doughs, ferments &mdash; ahead of competition night.</p></div></li>
+          </ol>
+        </div>
+
+        <div class="day-panel" role="tabpanel" id="day-2" aria-labelledby="tab-2">
+          <ol class="timeline">
+            <li><span class="t-when">Morning</span><div><h3>Golf tournament</h3><p>Guests who want to play tee off together, with closest-to-the-pin and longest-drive contests on the course.</p></div></li>
+            <li><span class="t-when">Morning</span><div><h3>Chefs in the kitchen</h3><p>Meanwhile, all ten chefs are at Recovery Nexus preparing their courses.</p></div></li>
+            <li><span class="t-when">Afternoon</span><div><h3>Back to the hotel</h3><p>A short break after golf to rest and change into black tie.</p></div></li>
+            <li class="is-highlight"><span class="t-when">Evening</span><div><h3>The gala at Recovery Nexus</h3><p>Ten blind courses, live music, and a silent auction. Guests vote for their favorite plate, the chefs are revealed, and the winner is presented with the trophy.</p></div></li>
+          </ol>
+        </div>
+
+        <div class="day-panel" role="tabpanel" id="day-3" aria-labelledby="tab-3" hidden>
+          <ol class="timeline">
+            <li><span class="t-when">All day</span><div><h3>Travel home</h3><p>Guests and chefs head home &mdash; with a curated gift bag, carry-on friendly, including small-batch jam and hot sauce made by Chef Brian.</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How the vote works ------------------------------------------------- -->
+  <section data-stage="right">
+    <div class="wrap">
+      <div class="g-col reveal">
+        <p class="mono-tag">05 &mdash; The vote</p>
+        <h2>No names. No politics. Just the plate.</h2>
+        <ol class="vote-steps">
+          <li><span>A</span><div><h3>Taste blind</h3><p>Every course is served without the chef or program attached.</p></div></li>
+          <li><span>B</span><div><h3>Every guest votes</h3><p>At the end of the dinner, each guest casts a ballot for their favorite course.</p></div></li>
+          <li><span>C</span><div><h3>The reveal</h3><p>Chefs are unmasked, the votes are counted, and the winner takes the trophy home.</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- The trophy --------------------------------------------------------- -->
+  <section data-stage="close" id="trophy" class="g-trophy">
+    <div class="wrap">
+      <div class="g-col reveal">
+        <p class="mono-tag">06 &mdash; The trophy</p>
+        <h2>One trophy stays.<br>One travels.</h2>
+        <p class="g-body">The permanent trophy lives at Recovery Nexus. Each year the winning chef&rsquo;s name is engraved on its base, so the plaque grows into a record of the best cooking in our field.</p>
+        <p class="g-body">The winner doesn&rsquo;t leave empty-handed: a traveling trophy goes home with them and stays at their program for the year, until the next champion is crowned.</p>
+        <div class="plate-preview" aria-label="Engraving preview">
+          <p class="mono-fine">Engraving &middot; 2027</p>
+          <p class="plate-line" id="engrave-line">Awaiting our first champion</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Golf ----------------------------------------------------------------- -->
+  <section data-stage="dim" class="g-panel">
+    <div class="wrap">
+      <div class="g-split reveal">
+        <div>
+          <p class="mono-tag">07 &mdash; Morning round</p>
+          <h2>Eighteen holes before dinner.</h2>
+          <p class="g-body">The morning of the gala, guests who want to play head out for a tournament while the chefs cook. Expect branded balls and tees, closest-to-the-pin and longest-drive prizes, and a good excuse to get to know the people you&rsquo;ll be sharing a table with that night.</p>
+          <p class="mono-fine">Course and start time announced with tickets.</p>
+        </div>
+        <div class="holes" id="golf">
+          <p class="holes-k">Sponsor a hole &middot; $500</p>
+          <div class="holes-grid" id="holes-grid" role="group" aria-label="Choose a hole to sponsor">
+            <button type="button" class="hole" data-hole="1" aria-label="Sponsor hole 1">01</button>
+            <button type="button" class="hole" data-hole="2" aria-label="Sponsor hole 2">02</button>
+            <button type="button" class="hole" data-hole="3" aria-label="Sponsor hole 3">03</button>
+            <button type="button" class="hole" data-hole="4" aria-label="Sponsor hole 4">04</button>
+            <button type="button" class="hole" data-hole="5" aria-label="Sponsor hole 5">05</button>
+            <button type="button" class="hole" data-hole="6" aria-label="Sponsor hole 6">06</button>
+            <button type="button" class="hole" data-hole="7" aria-label="Sponsor hole 7">07</button>
+            <button type="button" class="hole" data-hole="8" aria-label="Sponsor hole 8">08</button>
+            <button type="button" class="hole" data-hole="9" aria-label="Sponsor hole 9">09</button>
+            <button type="button" class="hole" data-hole="10" aria-label="Sponsor hole 10">10</button>
+            <button type="button" class="hole" data-hole="11" aria-label="Sponsor hole 11">11</button>
+            <button type="button" class="hole" data-hole="12" aria-label="Sponsor hole 12">12</button>
+            <button type="button" class="hole" data-hole="13" aria-label="Sponsor hole 13">13</button>
+            <button type="button" class="hole" data-hole="14" aria-label="Sponsor hole 14">14</button>
+            <button type="button" class="hole" data-hole="15" aria-label="Sponsor hole 15">15</button>
+            <button type="button" class="hole" data-hole="16" aria-label="Sponsor hole 16">16</button>
+            <button type="button" class="hole" data-hole="17" aria-label="Sponsor hole 17">17</button>
+            <button type="button" class="hole" data-hole="18" aria-label="Sponsor hole 18">18</button>
+          </div>
+          <div class="holes-legend" aria-hidden="true">
+            <span><i class="lg-open"></i>Available</span>
+            <span><i class="lg-sold"></i>Sponsored</span>
+          </div>
+          <p class="holes-caption" id="holes-caption">Pick an open hole to sponsor it for your facility.</p>
+          <p class="holes-thanks" id="holes-thanks" role="status" hidden></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Silent auction ------------------------------------------------------- -->
+  <section data-stage="dim">
+    <div class="wrap">
+      <div class="g-head reveal">
+        <p class="mono-tag">08 &mdash; Silent auction</p>
+        <h2>Lots worth leaving the table for.</h2>
+        <p class="g-body">A preview of the experiences being assembled for the auction. Final lots are announced before the event.</p>
+        <p class="g-note"><strong>Donating an item?</strong> Every donated auction item comes with two tickets to the gala.</p>
+      </div>
+      <ul class="lots reveal">
+        <li class="lot-feature"><span class="lot-n">Lot 01</span><h3>Vermejo Park Ranch</h3><p>A multi-night stay at Ted Turner&rsquo;s 550,000-acre private luxury guest ranch &middot; New Mexico</p></li>
+        <li><span class="lot-n">Lot 02</span><h3>Duck &amp; goose hunt</h3><p>Guided &middot; Northern California</p></li>
+        <li><span class="lot-n">Lot 03</span><h3>Guided fly fishing</h3><p>Arkansas</p></li>
+        <li><span class="lot-n">Lot 04</span><h3>Guided fly fishing</h3><p>Taos, New Mexico</p></li>
+        <li><span class="lot-n">Lot 05</span><h3>Guided fly fishing</h3><p>Virginia</p></li>
+        <li><span class="lot-n">Lot 06</span><h3>Whitewater rafting</h3><p>Hosted by Adventure Recovery &middot; Colorado</p></li>
+        <li><span class="lot-n">Lot 07</span><h3>Surfing experience</h3><p>Hosted by Waves to Recovery</p></li>
+        <li><span class="lot-n">Lot 08</span><h3>Denver Broncos tickets</h3><p>Game-day seats &middot; Denver</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Where the money goes ------------------------------------------------ -->
+  <section data-stage="right">
+    <div class="wrap">
+      <div class="g-col reveal">
+        <p class="mono-tag">09 &mdash; The point of it all</p>
+        <h2>Every course funds a second chance.</h2>
+        <p class="g-body-lg">Proceeds go to Monumental Recovery Foundation, which pays for scholarships so men who need extended, high-quality addiction treatment can get it &mdash; regardless of what they can afford.</p>
+        <p class="g-body">Scholarship dollars are paid directly to approved treatment programs, never as cash, and awards are made on need alone.</p>
+        <a class="link-arrow" href="story.html">Read our story <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get involved -------------------------------------------------------- -->
+  <section data-stage="dim" id="involved" class="g-panel">
+    <div class="wrap">
+      <div class="g-head reveal">
+        <p class="mono-tag">10 &mdash; Pull up a chair</p>
+        <h2>Four ways to be in the room.</h2>
+      </div>
+      <div class="tiers reveal">
+        <article class="tier tier-feature">
+          <p class="tier-k">Guest</p>
+          <p class="tier-price">$1,000<small>/ seat</small></p>
+          <p>A seat at the table for all ten courses, live music, the silent auction, your vote, and a curated gift bag. 100 seats.</p>
+          <a class="btn btn-silver" href="contact.html?reason=event">Reserve a seat</a>
+        </article>
+        <article class="tier">
+          <p class="tier-k">Chef</p>
+          <p class="tier-price">$5,000<small>/ entry</small></p>
+          <p>Enter your program&rsquo;s chef. Includes your facility sponsorship, a custom apron with your logo, and <strong>three tickets</strong> &mdash; one for your chef and two for guests &mdash; at no additional cost. 10 spots.</p>
+          <a class="btn btn-outline-light" href="contact.html?reason=event">Enter a chef</a>
+        </article>
+        <article class="tier">
+          <p class="tier-k">Hole sponsor</p>
+          <p class="tier-price">$500<small>/ hole</small></p>
+          <p>Put your facility&rsquo;s name on one of the eighteen holes of the morning tournament. Pick your hole and pay online.</p>
+          <a class="btn btn-outline-light" href="#golf">Choose a hole</a>
+        </article>
+        <article class="tier">
+          <p class="tier-k">Auction donor</p>
+          <p class="tier-price">In kind</p>
+          <p>Have a trip, experience, or one-of-a-kind item to give? Every donated auction item comes with <strong>two tickets</strong> to the gala.</p>
+          <a class="btn btn-outline-light" href="contact.html?reason=event">Donate an item</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Venue ---------------------------------------------------------------- -->
+  <section data-stage="hero" class="g-venue">
+    <div class="wrap">
+      <div class="g-col reveal">
+        <p class="mono-tag">Hosted by Recovery Nexus</p>
+        <h2>See you at the table.</h2>
+        <address class="venue">
+          <span>Recovery Nexus</span>
+          <span>15790 Kingswood Drive</span>
+          <span>Colorado Springs, CO 80921</span>
+        </address>
+        <p class="g-body">Questions about tickets, chefs, or sponsorship? Write to <a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a>.</p>
+        <div class="btn-row">
+          <a class="btn btn-silver" href="contact.html?reason=event">Get in touch</a>
+          <a class="btn btn-outline-light" href="donate.html">Can&rsquo;t make it? Give</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Hole sponsorship: collects the facility name, then hands off to Stripe Checkout -->
+<dialog class="hole-dialog" id="hole-dialog" aria-labelledby="hole-dialog-title">
+  <form id="hole-form" novalidate>
+    <p class="mono-tag">Golf &middot; Hole sponsorship</p>
+    <h2 id="hole-dialog-title">Sponsor hole <span id="hole-dialog-num">01</span></h2>
+    <p class="g-body">$500. Your facility&rsquo;s name goes on this hole for the morning tournament. You&rsquo;ll finish payment securely with Stripe.</p>
+    <div class="field">
+      <label for="hole-facility">Sponsoring facility</label>
+      <input id="hole-facility" name="facility" type="text" maxlength="100" autocomplete="organization" required placeholder="Facility name">
+    </div>
+    <p class="form-error" id="hole-error" role="alert" hidden></p>
+    <div class="btn-row">
+      <button class="btn btn-silver" type="submit" id="hole-submit">Continue to payment</button>
+      <button class="btn btn-outline-light" type="button" data-close-hole>Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="assets/logo-creme.png" alt="Monumental Recovery Foundation" width="680" height="157">
+        <p class="small" style="max-width:36ch;opacity:0.82;">A Colorado nonprofit corporation organized exclusively for charitable and educational purposes.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="story.html">Story</a></li>
+          <li><a href="taste-of-recovery.html">Taste of Recovery 2027</a></li>
+          <li><a href="apply.html">Apply for a scholarship</a></li>
+          <li><a href="donate.html">Donate</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Get in touch</h3>
+        <ul>
+          <li><a href="mailto:give@monumentalrecovery.org">give@monumentalrecovery.org</a></li>
+          <li>Carbondale, Colorado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span class="js-year">2026</span> Monumental Recovery Foundation. All rights reserved.</p>
+      <p><a href="donation-policy.html">Donation policy</a> &middot; <a href="privacy.html">Privacy policy</a></p>
+      <p>501(c)(3) status pending. If you or someone you love needs help now, call the SAMHSA National Helpline at <a href="tel:18006624357">1-800-662-4357</a>.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script type="module" src="assets/event/event.js"></script>
+</body>
+</html>
