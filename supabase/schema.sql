@@ -31,7 +31,7 @@ create table if not exists public.staff (
   user_id uuid primary key references auth.users (id) on delete cascade
 );
 
--- One row: what's open right now. Staff change it from gala/admin.html.
+-- One row: what's open right now. Staff change it from torapp/admin.html.
 create table if not exists public.event_state (
   id                int primary key default 1 check (id = 1),
   auction           text not null default 'upcoming' check (auction in ('upcoming', 'open', 'closed')),
@@ -45,7 +45,7 @@ create table if not exists public.event_state (
 insert into public.event_state (id) values (1) on conflict (id) do nothing;
 
 -- Lot rules the database enforces. Titles and descriptions guests see live in
--- gala/js/content.js; keep the opening bids and raises here in step with it.
+-- torapp/js/content.js; keep the opening bids and raises here in step with it.
 create table if not exists public.lots (
   id        text primary key,
   no        int  not null,

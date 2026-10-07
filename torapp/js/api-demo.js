@@ -9,7 +9,7 @@
 
    DEMO MODE: data lives in this browser (localStorage, plus
    IndexedDB for photos and videos). Tabs in the same browser stay in sync,
-   so you can open the app and /gala/admin.html side by side. Sign-in codes
+   so you can open the app and /torapp/admin.html side by side. Sign-in codes
    are shown on screen instead of texted. Nothing leaves the device.
    ========================================================================== */
 

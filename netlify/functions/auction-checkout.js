@@ -60,8 +60,8 @@ exports.handler = async function (event) {
     const label = `Lot ${String(lot.no).padStart(2, "0")}: ${lot.title}`;
     const form = new URLSearchParams();
     form.append("mode", "payment");
-    form.append("success_url", origin + "/gala/?paid={CHECKOUT_SESSION_ID}#/auction");
-    form.append("cancel_url", origin + "/gala/#/auction");
+    form.append("success_url", origin + "/torapp/?paid={CHECKOUT_SESSION_ID}#/auction");
+    form.append("cancel_url", origin + "/torapp/#/auction");
     form.append("line_items[0][quantity]", "1");
     form.append("line_items[0][price_data][currency]", "usd");
     form.append("line_items[0][price_data][unit_amount]", String(top.amount * 100));

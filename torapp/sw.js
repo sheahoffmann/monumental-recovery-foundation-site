@@ -3,7 +3,7 @@
    cached copy is only a fallback when venue Wi-Fi drops. Bump VERSION when
    the file list changes. */
 
-const VERSION = "tor27-v5";
+const VERSION = "tor27-v6";
 const SHELL = [
   "./",
   "index.html",

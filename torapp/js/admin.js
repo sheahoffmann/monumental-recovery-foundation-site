@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Taste of Recovery 2027 — staff page (gala/admin.html)
+   Taste of Recovery 2027 — staff page (torapp/admin.html)
    --------------------------------------------------------------------------
    The same host controls as the app's Host tab (js/host.js), on a page of
    their own for a laptop or tablet. Staff sign in with email and password

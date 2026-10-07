@@ -11,7 +11,7 @@ step). If you add a new public file at the top level, add it to the `command` in
 index.html                 Home
 story.html                 Story
 taste-of-recovery.html     Taste of Recovery 2027 gala page, UNLISTED: noindex, not linked anywhere (3D trophy: assets/event/, three.js in assets/vendor/)
-gala/                      Taste of Recovery guest app (installable web app, /gala/), UNLISTED. See "Gala guest app" below
+torapp/                    Taste of Recovery guest app (installable web app, /torapp/), UNLISTED. See "Gala guest app" below
 supabase/                  Guest app database setup (schema.sql) and test-data reset (reset-test-data.sql); not published
 donate.html                Donate (Stripe Checkout)
 contact.html               Contact (Netlify form -> thank-you.html)
@@ -151,9 +151,9 @@ you're doing it by hand at volume.
 
 ---
 
-## Gala guest app (`gala/`)
+## Gala guest app (`torapp/`)
 
-An installable web app for guests at Taste of Recovery 2027, at `/gala/`. Guests open the
+An installable web app for guests at Taste of Recovery 2027, at `/torapp/`. Guests open the
 link (or scan a QR code on the tables) and tap **Add to Home Screen**. No app store.
 It is `noindex` and not linked from the site.
 
@@ -161,14 +161,14 @@ It is `noindex` and not linked from the site.
 bidding, outbid alerts, Pay button for winners), Vote (one vote per guest, results after the
 reveal), Schedule (three days, "Now" / "Up next"), Chefs (course hidden until the reveal),
 Photos & videos (upload, staff approval, gallery), Feedback (five questions, opens after
-the gala). `gala/admin.html` is the staff page: open/close the auction and the vote, set an
+the gala). `torapp/admin.html` is the staff page: open/close the auction and the vote, set an
 auto-close time, reveal the winner (engraves the trophy on every phone), mark lots paid,
 approve photos, read feedback and download it as CSV.
 
 **Host controls:** staff tap **More → Staff sign in** in the app (email + password from
 Supabase → Authentication → Users, listed in `public.staff`) and get a **Host** tab: Start/End
 bidding, Start/End voting, the reveal, the feedback form, lots and payments, photo approvals.
-`gala/admin.html` shows the same controls on their own page.
+`torapp/admin.html` shows the same controls on their own page.
 
 **Voting code:** Start voting creates a random 4-digit code, shown only on the Host tab. Announce
 it in the room; a guest's first vote needs it (switching dishes afterwards doesn't). Five wrong
@@ -178,13 +178,13 @@ codes locks a guest out until staff tap Unlock. "New code" replaces it mid-vote.
 test guests, bids, votes, photos and feedback.
 
 **Editing content:** schedule, courses, chefs, lots (opening bids and minimum raises) and
-feedback questions are all in `gala/js/content.js`.
+feedback questions are all in `torapp/js/content.js`.
 
 **The trophy** is shared with the gala page: `assets/event/trophy-model.js` builds it,
-`assets/event/event.js` animates it on the page and `gala/js/trophy.js` in the app.
+`assets/event/event.js` animates it on the page and `torapp/js/trophy.js` in the app.
 
 ### Demo mode (current)
-`gala/js/api.js` runs a demo backend: everything is stored in the browser, sign-in codes
+`torapp/js/api.js` runs a demo backend: everything is stored in the browser, sign-in codes
 are shown on screen instead of texted, and Pay marks a lot paid without charging a card.
 Open the app and `admin.html` in two tabs of the same browser to try it end to end (staff
 PIN `2027`). "Outbid (test)" on the staff page has a pretend guest outbid you. Add
@@ -195,7 +195,7 @@ won't work, because the app uses JavaScript modules):
 ```
 python3 -m http.server 8000
 ```
-then open http://localhost:8000/gala/
+then open http://localhost:8000/torapp/
 
 ### Going live (still to do)
 Needs a **Supabase** project (database, live updates, photo storage, phone sign-in) with

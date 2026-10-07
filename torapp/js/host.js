@@ -4,7 +4,7 @@
    The staff screen: one big button per step of the night (bidding, voting,
    the reveal, the feedback form), then lots and payments, photo approvals
    and feedback. Shown in the app's Host tab once a staff member signs in,
-   and on gala/admin.html. Every action is checked by the server in live mode.
+   and on torapp/admin.html. Every action is checked by the server in live mode.
    ========================================================================== */
 
 import * as api from "./api.js";

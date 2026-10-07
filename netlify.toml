@@ -5,7 +5,7 @@
   # so internal files (README.md, tools/, netlify/functions/ source) are never online.
   # New top-level public files (anything besides .html pages and assets/) must be added here.
   # The command stops on any error, and a failed deploy leaves the live site untouched.
-  command = "rm -rf _site && mkdir _site && cp *.html style.css main.js robots.txt sitemap.xml _site/ && cp -R assets gala _site/"
+  command = "rm -rf _site && mkdir _site && cp *.html style.css main.js robots.txt sitemap.xml _site/ && cp -R assets torapp _site/"
   publish = "_site"
 
 [functions]
@@ -40,15 +40,15 @@
   status = 404
   force = true
 
-# Guest app (gala/): the service worker must always be re-checked so app
+# Guest app (torapp/): the service worker must always be re-checked so app
 # updates reach phones that have it installed.
 [[headers]]
-  for = "/gala/sw.js"
+  for = "/torapp/sw.js"
   [headers.values]
     Cache-Control = "no-cache"
 
 # The guest app is unlisted until launch: keep every page and file out of search results.
 [[headers]]
-  for = "/gala/*"
+  for = "/torapp/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
