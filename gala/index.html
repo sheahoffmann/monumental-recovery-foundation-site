@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Taste of Recovery 2027</title>
+<meta name="description" content="The guest app for Taste of Recovery 2027: schedule, silent auction, voting, chefs, photos and feedback.">
+<meta name="theme-color" content="#0b0f1c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Taste of Recovery">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="../assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<link rel="modulepreload" href="../assets/vendor/three.module.min.js">
+</head>
+<body>
+<div class="demo-bar" id="demo-bar" hidden>Demo mode · data stays on this device · <a href="admin.html" id="demo-admin">Staff controls</a></div>
+
+<header class="app-head">
+  <a class="brand" href="#/" aria-label="Taste of Recovery home">
+    <span class="brand-k">Taste of</span>
+    <span class="brand-n">RECOVERY</span>
+  </a>
+  <button type="button" class="paddle" id="who"></button>
+</header>
+
+<main id="view" tabindex="-1"></main>
+
+<nav class="tabbar" aria-label="Sections">
+  <a href="#/" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M12 14v4M8 20h8M17 5h2.5a.5.5 0 0 1 .5.5V7a3 3 0 0 1-3 3M7 5H4.5a.5.5 0 0 0-.5.5V7a3 3 0 0 0 3 3"/></svg>Home</a>
+  <a href="#/auction" data-tab="auction"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 4 6 6M11 7l6 6M12.5 5.5l-5 5M18.5 11.5l-5 5M9 13l-6 6M4 21h9"/></svg>Auction<span class="badge" id="badge-auction" hidden></span></a>
+  <a href="#/vote" data-tab="vote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13h16v7H4zM8 13V6.5A1.5 1.5 0 0 1 9.5 5h5A1.5 1.5 0 0 1 16 6.5V13"/><path d="m10 9 1.5 1.5L14 8"/></svg>Vote<span class="badge" id="badge-vote" hidden></span></a>
+  <a href="#/photos" data-tab="photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Photos</a>
+  <a href="#/host" data-tab="host" id="tab-host" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Host</a>
+  <a href="#/more" data-tab="more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>More</a>
+</nav>
+
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+<!-- Sign in ------------------------------------------------------------- -->
+<dialog class="sheet" id="signin" aria-labelledby="signin-h">
+  <button type="button" class="sheet-close" data-close aria-label="Close">&times;</button>
+  <form id="signin-phone" novalidate>
+    <p class="mono gold">Join the gala</p>
+    <h2 id="signin-h">Sign in with your phone</h2>
+    <p class="dim">We'll text you a 6-digit code. Your number is only used for this event: signing in, outbid alerts and auction results.</p>
+    <label class="lbl" for="si-name">Your name</label>
+    <input class="field" id="si-name" name="name" autocomplete="name" required maxlength="60">
+    <label class="lbl" for="si-phone">Mobile number</label>
+    <input class="field" id="si-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required placeholder="(719) 555-0123">
+    <p class="error" role="alert" hidden></p>
+    <button class="btn btn-silver btn-block" style="margin-top:18px">Text me a code</button>
+  </form>
+  <form id="signin-code" novalidate hidden>
+    <p class="mono gold">Check your texts</p>
+    <h2>Enter your code</h2>
+    <p class="dim" id="si-sent"></p>
+    <label class="lbl" for="si-code">6-digit code</label>
+    <input class="field code-input" id="si-code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required>
+    <p class="demo-note" id="si-demo" hidden></p>
+    <p class="error" role="alert" hidden></p>
+    <button class="btn btn-silver btn-block" style="margin-top:18px">Sign in</button>
+    <p style="margin-top:14px;text-align:center"><button type="button" class="link-btn" id="si-back">Use a different number</button></p>
+  </form>
+</dialog>
+
+<!-- Staff sign in ---------------------------------------------------- -->
+<dialog class="sheet" id="staff-signin" aria-labelledby="staff-h">
+  <button type="button" class="sheet-close" data-close aria-label="Close">&times;</button>
+  <form id="staff-form" novalidate>
+    <p class="mono gold">Staff only</p>
+    <h2 id="staff-h">Staff sign in</h2>
+    <p class="dim">Adds a Host tab with the controls for the night. Your guest sign-in stays as it is.</p>
+    <label class="lbl" for="st-email">Email</label>
+    <input class="field" id="st-email" name="email" type="email" autocomplete="username">
+    <label class="lbl" for="st-pw">Password</label>
+    <input class="field" id="st-pw" name="password" type="password" autocomplete="current-password">
+    <p class="demo-note" id="st-demo" hidden></p>
+    <p class="error" role="alert" hidden></p>
+    <button class="btn btn-silver btn-block" style="margin-top:18px">Sign in</button>
+  </form>
+</dialog>
+
+<!-- Confirm ------------------------------------------------------------- -->
+<dialog class="sheet" id="confirm" aria-labelledby="confirm-h">
+  <p class="mono gold" id="confirm-k"></p>
+  <h2 id="confirm-h"></h2>
+  <p class="dim" id="confirm-body"></p>
+  <div style="display:grid;gap:10px;margin-top:18px">
+    <button type="button" class="btn btn-silver btn-block" id="confirm-yes"></button>
+    <button type="button" class="btn btn-ghost btn-block" data-close>Cancel</button>
+  </div>
+</dialog>
+
+<!-- Photo viewer -------------------------------------------------------- -->
+<dialog class="lightbox" id="lightbox" aria-label="Photo">
+  <button type="button" class="sheet-close" data-close aria-label="Close">&times;</button>
+  <div id="lightbox-body"></div>
+</dialog>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

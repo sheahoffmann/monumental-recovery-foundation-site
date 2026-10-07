@@ -11,6 +11,8 @@ step). If you add a new public file at the top level, add it to the `command` in
 index.html                 Home
 story.html                 Story
 taste-of-recovery.html     Taste of Recovery 2027 gala page, UNLISTED: noindex, not linked anywhere (3D trophy: assets/event/, three.js in assets/vendor/)
+gala/                      Taste of Recovery guest app (installable web app, /gala/), UNLISTED. See "Gala guest app" below
+supabase/                  Guest app database setup (schema.sql) and test-data reset (reset-test-data.sql); not published
 donate.html                Donate (Stripe Checkout)
 contact.html               Contact (Netlify form -> thank-you.html)
 apply.html                 Scholarship application: PDF downloads + Submit (email) instructions
@@ -146,3 +148,59 @@ you're doing it by hand at volume.
   cost barriers, add them with a cited source.
 - Crisis resources (SAMHSA National Helpline, 988) appear in the footer and on the
   contact page.
+
+---
+
+## Gala guest app (`gala/`)
+
+An installable web app for guests at Taste of Recovery 2027, at `/gala/`. Guests open the
+link (or scan a QR code on the tables) and tap **Add to Home Screen**. No app store.
+It is `noindex` and not linked from the site.
+
+**Screens:** Home (spinning trophy, live status, countdown), Silent auction (8 lots, live
+bidding, outbid alerts, Pay button for winners), Vote (one vote per guest, results after the
+reveal), Schedule (three days, "Now" / "Up next"), Chefs (course hidden until the reveal),
+Photos & videos (upload, staff approval, gallery), Feedback (five questions, opens after
+the gala). `gala/admin.html` is the staff page: open/close the auction and the vote, set an
+auto-close time, reveal the winner (engraves the trophy on every phone), mark lots paid,
+approve photos, read feedback and download it as CSV.
+
+**Host controls:** staff tap **More → Staff sign in** in the app (email + password from
+Supabase → Authentication → Users, listed in `public.staff`) and get a **Host** tab: Start/End
+bidding, Start/End voting, the reveal, the feedback form, lots and payments, photo approvals.
+`gala/admin.html` shows the same controls on their own page.
+
+**Voting code:** Start voting creates a random 4-digit code, shown only on the Host tab. Announce
+it in the room; a guest's first vote needs it (switching dishes afterwards doesn't). Five wrong
+codes locks a guest out until staff tap Unlock. "New code" replaces it mid-vote.
+
+**Before the gala:** run `supabase/reset-test-data.sql` in the Supabase SQL Editor to clear
+test guests, bids, votes, photos and feedback.
+
+**Editing content:** schedule, courses, chefs, lots (opening bids and minimum raises) and
+feedback questions are all in `gala/js/content.js`.
+
+**The trophy** is shared with the gala page: `assets/event/trophy-model.js` builds it,
+`assets/event/event.js` animates it on the page and `gala/js/trophy.js` in the app.
+
+### Demo mode (current)
+`gala/js/api.js` runs a demo backend: everything is stored in the browser, sign-in codes
+are shown on screen instead of texted, and Pay marks a lot paid without charging a card.
+Open the app and `admin.html` in two tabs of the same browser to try it end to end (staff
+PIN `2027`). "Outbid (test)" on the staff page has a pretend guest outbid you. Add
+`?now=2027-06-17T19:30` to the app URL to preview the schedule at a given time.
+
+To preview locally, run a local web server from this folder (opening the file directly
+won't work, because the app uses JavaScript modules):
+```
+python3 -m http.server 8000
+```
+then open http://localhost:8000/gala/
+
+### Going live (still to do)
+Needs a **Supabase** project (database, live updates, photo storage, phone sign-in) with
+**Twilio** connected inside Supabase for the text messages, plus the existing
+`STRIPE_SECRET_KEY` for auction payments. Once those exist: the database tables and access
+rules, a Supabase version of `api.js`, a `netlify/functions/auction-checkout.js` for winners'
+payments, outbid and "you won" texts, and real staff logins for `admin.html`. The screens
+don't change.
