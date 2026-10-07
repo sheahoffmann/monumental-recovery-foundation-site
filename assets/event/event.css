@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Taste of Recovery ‚Äî event page (taste-of-recovery.html)
+   Taste of Recovery — event page (taste-of-recovery.html)
    Layers on top of style.css. Everything is scoped to body.gala.
    Night palette: deep navy-black ground, chrome silver, a warm champagne accent.
    ========================================================================== */
@@ -73,7 +73,7 @@ body.gala .btn-outline-light:hover { background: var(--g-text); color: var(--g-i
 .stage.no-webgl canvas { display: none; }
 .stage.no-webgl .stage-fallback { display: block; }
 
-/* Faint blueprint grid + a scanline glow under the trophy ‚Äî the "tech" layer */
+/* Faint blueprint grid + a scanline glow under the trophy — the "tech" layer */
 .stage-grid {
   position: fixed;
   inset: 0;
@@ -217,7 +217,7 @@ body.gala h2 { font-size: clamp(2.1rem, 4.4vw, 3.6rem); max-width: 16ch; text-wr
 .menu-n { font-family: var(--font-mono); font-size: 0.8rem; color: var(--g-champagne); letter-spacing: 0.1em; }
 .menu-course { font-family: var(--font-display); font-size: clamp(1.35rem, 2.6vw, 2rem); font-weight: 700; line-height: 1.15; }
 .menu-chef { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--g-dim); text-align: right; }
-/* Redaction bar ‚Äî the chef is hidden until hover, mimicking the blind tasting */
+/* Redaction bar — the chef is hidden until hover, mimicking the blind tasting */
 .menu-chef[data-redact] { position: relative; }
 .menu-chef[data-redact]::after {
   content: "";
@@ -235,7 +235,7 @@ body.gala h2 { font-size: clamp(2.1rem, 4.4vw, 3.6rem); max-width: 16ch; text-wr
   .menu-chef { grid-column: 2; text-align: left; }
 }
 
-/* Panels ‚Äî opaque sections where content runs full width */
+/* Panels — opaque sections where content runs full width */
 .g-panel { background: linear-gradient(180deg, rgba(11, 15, 28, 0) 0%, rgba(11, 15, 28, 0.75) 12%, rgba(11, 15, 28, 0.75) 88%, rgba(11, 15, 28, 0) 100%); }
 
 /* Days --------------------------------------------------------------------- */
