@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=block" rel="stylesheet">
+<style>
+  :root {
+    --navy: #2e3d68; --navy-deep: #232f52; --navy-soft: #4a5885; --navy-mist: #8a93b0;
+    --creme: #f1ebdc; --creme-warm: #e7e0cd; --creme-line: #d5cbb4;
+    --gold: #b38b4d; --pink: #a34e6c;
+    --display: "Playfair Display", Georgia, serif; --body: "Karla", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; }
+  body { padding-top: 100px; }
+  .f { display: none; position: relative; overflow: hidden; width: 1080px; height: 1350px; font-family: var(--body); }
+  .f.story { height: 1920px; }
+  .f.on { display: block; }
+  .navy { background: var(--navy-deep); color: var(--creme); }
+  .creme { background: var(--creme); color: var(--navy); }
+  .pad { position: absolute; inset: 0; padding: 110px 100px; display: flex; flex-direction: column; }
+  .eyebrow { font: 700 26px/1 var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+  h1 { font: 800 112px/1.02 var(--display); letter-spacing: -.01em; }
+  h2 { font: 800 88px/1.06 var(--display); }
+  h1 em, h2 em { font-style: italic; color: var(--gold); font-weight: 700; }
+  p.lede { font: 400 42px/1.4 var(--body); max-width: 860px; }
+  .rule { width: 120px; height: 4px; background: var(--gold); }
+  .grow { flex: 1; }
+  .logo { height: 120px; width: auto; align-self: flex-start; }
+  .icon { width: 96px; height: 96px; }
+  .big { font: 800 300px/0.9 var(--display); color: var(--gold); letter-spacing: -.02em; }
+  .num { font: 700 30px/1 var(--body); letter-spacing: .2em; color: var(--navy-mist); }
+  .url { font: 700 40px/1 var(--body); letter-spacing: .02em; }
+  .pill { display: inline-block; background: var(--gold); color: var(--navy-deep); font: 700 40px/1 var(--body); padding: 34px 54px; border-radius: 999px; align-self: flex-start; }
+  .scene { position: absolute; inset: 0; }
+  .story .scene { top: auto; height: 1350px; }
+  .story { background: #1b2442; }
+  .scene svg { width: 100%; height: 100%; display: block; }
+  .dots { display: flex; gap: 14px; }
+  .dots i { width: 14px; height: 14px; border-radius: 50%; background: currentColor; opacity: .25; }
+  .dots i.a { opacity: 1; background: var(--gold); }
+  .swipe { font: 700 28px/1 var(--body); letter-spacing: .18em; text-transform: uppercase; opacity: .7; }
+</style>
+</head>
+<body>
+
+<!-- Reusable mountain scene -->
+<template id="mtn">
+  <svg viewBox="0 0 1080 1350" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1b2442"/>
+        <stop offset=".55" stop-color="#2e3d68"/>
+        <stop offset=".82" stop-color="#8c6a4a"/>
+        <stop offset="1" stop-color="#d9b47a"/>
+      </linearGradient>
+      <radialGradient id="sun" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#f6e3b8" stop-opacity=".95"/>
+        <stop offset=".35" stop-color="#e2bb7c" stop-opacity=".55"/>
+        <stop offset="1" stop-color="#b38b4d" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1080" height="1350" fill="url(#sky)"/>
+    <circle cx="640" cy="1040" r="420" fill="url(#sun)"/>
+    <path d="M0 1010 L140 930 L260 975 L420 860 L560 950 L700 880 L860 960 L1080 900 V1350 H0Z" fill="#4a5885" opacity=".75"/>
+    <path d="M0 1110 L180 990 L300 1050 L470 920 L610 1040 L760 960 L930 1060 L1080 1000 V1350 H0Z" fill="#2e3d68"/>
+    <path d="M0 1200 L220 1090 L380 1150 L560 1060 L720 1160 L900 1100 L1080 1170 V1350 H0Z" fill="#232f52"/>
+  </svg>
+</template>
+
+<!-- POST 1: Introduction -->
+<section class="f navy" id="p1">
+  <div class="scene" data-scene></div>
+  <div class="pad">
+    <img class="icon" src="icon-creme.png" alt="">
+    <div style="height:70px"></div>
+    <div class="eyebrow">Introducing</div>
+    <div style="height:30px"></div>
+    <h1>Recovery should not be priced <em>out of reach.</em></h1>
+    <div style="height:44px"></div>
+    <p class="lede">Scholarships for men who need extended, high-quality addiction treatment.</p>
+    <div class="grow"></div>
+    <img class="logo" src="logo-tagline-creme.png" alt="" style="height:150px">
+  </div>
+</section>
+
+<!-- POST 2: Carousel -->
+<section class="f creme" id="c1">
+  <div class="pad">
+    <img class="icon" src="icon.png" alt="">
+    <div class="grow"></div>
+    <div class="eyebrow">Where your gift goes</div>
+    <div style="height:36px"></div>
+    <h1 style="font-size:132px">Pay for the bed.<br><em>Not the brochure.</em></h1>
+    <div class="grow"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div class="dots"><i class="a"></i><i></i><i></i><i></i><i></i></div>
+      <div class="swipe">Swipe &rarr;</div>
+    </div>
+  </div>
+</section>
+
+<section class="f navy" id="c2">
+  <div class="pad">
+    <div class="num">01</div>
+    <div class="grow"></div>
+    <div class="big">100%</div>
+    <div style="height:50px"></div>
+    <h2 style="font-size:72px">of scholarship funds are paid <em>directly</em> to the approved treatment program.</h2>
+    <div style="height:40px"></div>
+    <p class="lede" style="opacity:.8">Never handed out as cash. Every award is documented.</p>
+    <div class="grow"></div>
+    <div class="dots"><i></i><i class="a"></i><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section class="f creme" id="c3">
+  <div class="pad">
+    <div class="num">02</div>
+    <div class="grow"></div>
+    <h2>Programs have to <em>earn</em> a place.</h2>
+    <div style="height:60px"></div>
+    <div class="rule"></div>
+    <div style="height:60px"></div>
+    <p class="lede" style="font-size:46px;line-height:1.8">
+      &#10003;&nbsp; State licensure or certification<br>
+      &#10003;&nbsp; Evidence-based practice<br>
+      &#10003;&nbsp; A clean safety &amp; ethics record
+    </p>
+    <div class="grow"></div>
+    <div class="dots"><i></i><i></i><i class="a"></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section class="f navy" id="c4">
+  <div class="pad">
+    <div class="num">03</div>
+    <div class="grow"></div>
+    <h2>Need decides.<br><em>Nothing else.</em></h2>
+    <div style="height:60px"></div>
+    <p class="lede" style="opacity:.85">Directors serve without pay. Anyone with a financial interest in a program steps out of the room and out of the vote.</p>
+    <div class="grow"></div>
+    <div class="dots"><i></i><i></i><i></i><i class="a"></i><i></i></div>
+  </div>
+</section>
+
+<section class="f navy" id="c5">
+  <div class="scene" data-scene></div>
+  <div class="pad">
+    <div class="grow" style="flex:.6"></div>
+    <h2>Your gift becomes someone&rsquo;s <em>first real chance.</em></h2>
+    <div style="height:60px"></div>
+    <div class="pill">Give at monumentalrecovery.org</div>
+    <div class="grow"></div>
+    <img class="logo" src="logo-creme.png" alt="" style="height:100px">
+  </div>
+</section>
+
+<!-- POST 3: The window -->
+<section class="f navy" id="p3">
+  <div class="scene" data-scene></div>
+  <div class="pad">
+    <div class="eyebrow">Every family knows this moment</div>
+    <div style="height:40px"></div>
+    <h1 style="font-size:140px">The window<br>is <em>short.</em></h1>
+    <div style="height:50px"></div>
+    <p class="lede" style="opacity:.9">When a man is finally ready, the answer shouldn&rsquo;t depend on what he can pay.</p>
+    <div class="grow"></div>
+    <img class="logo" src="logo-creme.png" alt="" style="height:96px">
+  </div>
+</section>
+
+<!-- POST 4: Monthly -->
+<section class="f creme" id="p4">
+  <div class="pad">
+    <img class="icon" src="icon.png" alt="">
+    <div class="grow"></div>
+    <div class="eyebrow">Give monthly</div>
+    <div style="height:36px"></div>
+    <h1 style="font-size:104px">So the answer can be <em>yes</em> the day the call comes in.</h1>
+    <div style="height:50px"></div>
+    <p class="lede">Recurring gifts mean no waiting on the next fundraiser.</p>
+    <div class="grow"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+      <img class="logo" src="logo.png" alt="" style="height:80px">
+      <div class="url" style="color:var(--gold);font-size:32px;padding-bottom:6px">monumentalrecovery.org</div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section class="f navy story" id="s1">
+  <div class="scene" data-scene></div>
+  <div class="pad" style="padding:220px 100px">
+    <img class="icon" src="icon-creme.png" alt="" style="width:120px;height:120px">
+    <div style="height:80px"></div>
+    <div class="eyebrow">Meet</div>
+    <div style="height:30px"></div>
+    <h1 style="font-size:120px">Monumental Recovery <em>Foundation</em></h1>
+    <div style="height:50px"></div>
+    <p class="lede">Scholarships for men seeking lasting recovery through quality addiction treatment.</p>
+  </div>
+</section>
+
+<section class="f creme story" id="s2">
+  <div class="pad" style="padding:220px 100px;justify-content:center">
+    <div class="big" style="font-size:340px">100%</div>
+    <div style="height:60px"></div>
+    <h2 style="font-size:80px">of scholarship funds go <em>straight to treatment.</em></h2>
+    <div style="height:50px"></div>
+    <p class="lede">Paid directly to approved programs. Never as cash.</p>
+  </div>
+</section>
+
+<section class="f navy story" id="s3">
+  <div class="scene" data-scene></div>
+  <div class="pad" style="padding:220px 100px">
+    <h1 style="font-size:130px">Give a man <em>a chance.</em></h1>
+    <div style="height:60px"></div>
+    <p class="lede">One-time or monthly.</p>
+    <div style="height:60px"></div>
+    <div style="height:210px"></div>
+    <div class="grow"></div>
+    <img class="logo" src="logo-creme.png" alt="" style="height:100px">
+  </div>
+</section>
+
+<script>
+  const tpl = document.getElementById('mtn').innerHTML;
+  document.querySelectorAll('[data-scene]').forEach((el, i) => el.innerHTML = tpl.replaceAll('sky', 'sky' + i).replaceAll('sun', 'sun' + i));
+  const id = location.hash.slice(1) || 'p1';
+  document.getElementById(id).classList.add('on');
+</script>
+</body>
+</html>
